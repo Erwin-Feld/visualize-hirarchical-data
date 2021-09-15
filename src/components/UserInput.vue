@@ -10,6 +10,7 @@ export default {
 
 
     // TODO get the data from user input to the data property 
+    // Relocate 
 
     setup() {
         
