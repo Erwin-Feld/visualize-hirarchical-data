@@ -1,14 +1,16 @@
 <template>
   <img alt="half life logo" src="./assets/logo.png" />
 
-  <user-input />
+  <user-input @transmit-data="receaveData" />
 
-  <textarea rows="20" cols="40" v-model="internData" @input="onInputme" />
+  <!-- <textarea rows="20" cols="40" v-model="internData"  /> 
+ -->
 
-  <button type="button" @click="transformData">click</button>
-   <button type="button" @click="whatFormat">what</button>
 
-  <p>{{ internData }}</p>
+  <!-- <button type="button" @click="transformData">click</button>
+   <button type="button" @click="whatFormat">what</button> --> -->
+
+  <p>{{ childData }}</p>
 </template>
 
 <script>
@@ -24,10 +26,18 @@ export default {
     return {
       data: "dickerson",
       internData: "[1, 2, 3]",
+      childData: " "
     };
   },
 
   methods: {
+
+    receaveData(compTransmit){
+      console.log(compTransmit)
+      this.childData = compTransmit
+
+    },
+
     transformData() {
       //
       //
