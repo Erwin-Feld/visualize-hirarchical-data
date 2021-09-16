@@ -1,19 +1,40 @@
 <template>
-    <textarea />
-    
+
+
+     
+     <input  rows="20" cols="40" v-model="userinput" /> 
+
+    <button type="button" @click="transmitData">transmit</button>
+    <p>{{userinput}}</p>
+
 </template>
 
 <script>
 export default {
-    // props: ["inputData"],
 
+    // https://stackoverflow.com/a/69194446/14809198
+    emits: ['transmit-data'],
+ 
+        // TODO connect prop with data property 
 
+data() {
+    return {
+        userinput: " dd",
+        lowlvl: ""
+    }
+},
 
-    // TODO get the data from user input to the data property 
-    // Relocate 
-
-    setup() {
-        
+methods: {
+    transmitData(event){
+        this.$emit('transmit-data', this.userinput)
     },
+
+ 
+
+
+}
+
+
+
 }
 </script>
