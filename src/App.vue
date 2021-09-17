@@ -2,7 +2,7 @@
   <img alt="half life logo" src="./assets/logo.png" />
 
   <user-input @transmit-data="receaveData" />
-
+  <hirarch-tree :data="data" />
   <!-- <textarea rows="20" cols="40" v-model="internData"  /> 
  -->
 
@@ -15,16 +15,18 @@
 
 <script>
 import UserInput from "./components/UserInput.vue";
+import HirarchTree from "./components/HirarchTree.vue"
 
 export default {
   name: "App",
   components: {
     UserInput,
+    HirarchTree,
   },
 
   data() {
     return {
-      data: "dickerson",
+      data: [1,2,3],
       internData: "[1, 2, 3]",
       childData: " "
     };
