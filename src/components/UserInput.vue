@@ -15,8 +15,7 @@ export default {
     // https://stackoverflow.com/a/69194446/14809198
     emits: ['transmit-data'],
  
-        // TODO connect prop with data property 
-
+     
 data() {
     return {
         userinput: " dd",
