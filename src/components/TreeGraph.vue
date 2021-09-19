@@ -13,7 +13,7 @@ import { onMounted, ref, watchEffect } from "@vue/runtime-core";
 
 
 export default {
-  name: "HirarchTree",
+  name: "TreeGraph",
   props: ["data"],
 
   setup(props) {

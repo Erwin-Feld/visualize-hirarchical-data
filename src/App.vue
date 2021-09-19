@@ -2,7 +2,7 @@
   <img alt="half life logo" src="./assets/logo.png" />
 
   <user-input @transmit-data="receaveData" />
-  <hirarch-tree :data="data" />
+  <tree-graph :data="data" />
   <!-- <textarea rows="20" cols="40" v-model="internData"  /> 
  -->
 
@@ -15,13 +15,13 @@
 
 <script>
 import UserInput from "./components/UserInput.vue";
-import HirarchTree from "./components/HirarchTree.vue"
+import TreeGraph from "./components/TreeGraph.vue"
 
 export default {
   name: "App",
   components: {
     UserInput,
-    HirarchTree,
+    TreeGraph,
   },
 
   data() {
