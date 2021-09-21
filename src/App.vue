@@ -10,12 +10,16 @@
   <!-- <button type="button" @click="transformData">click</button>
    <button type="button" @click="whatFormat">what</button> --> -->
 
-  <p>{{ childData }}</p>
+  <p>{{ data }}</p>
 </template>
 
 <script>
 import UserInput from "./components/UserInput.vue";
 import TreeGraph from "./components/TreeGraph.vue"
+
+
+// import { packageJson } from "../src/assets/d3/data";
+
 
 export default {
   name: "App",
@@ -26,7 +30,7 @@ export default {
 
   data() {
     return {
-      data: [1,2,3],
+      data: {prop: "value0"},
       internData: "[1, 2, 3]",
       childData: " "
     };
@@ -35,8 +39,11 @@ export default {
   methods: {
 
     receaveData(compTransmit){
-      console.log(compTransmit)
-      this.childData = compTransmit
+      
+      // get the value of proxy 
+      this.data = compTransmit
+
+    
 
     },
 
