@@ -1,6 +1,6 @@
 <template>
   <div class="smurck">
-    <h1>hello im a component</h1>
+    <h1>I have this prop</h1>
     <svg ref="svgRef"></svg>
   </div>
 </template>
@@ -12,6 +12,8 @@ import d3 from '@/assets/d3';
 import { onMounted, ref, watchEffect } from "@vue/runtime-core";
 
 
+
+
 export default {
   name: "TreeGraph",
   props: ["data"],
@@ -19,23 +21,38 @@ export default {
   setup(props) {
     const svgRef = ref(null);
 
+    
     onMounted(() => {
       watchEffect(() => {
-        const selectSvg = d3.select(svgRef.value);
 
-        selectSvg
+        console.log(props.data)
+        // 
+        // TODO // add connection to graph !!!
 
-          .selectAll("g")
-          .data(Object.values(props.data))
-          .join("g")
 
-          .attr("transform", (d, i) => `translate(60, ${i * 21})`) // use attr instead of style
-          .append("rect")
-          .attr("width", 20 + "px")
-          .attr("height", 20 + "px")
-          .attr("fill", d3.color("orange"));
+
+        // const selectSvg = d3.select(svgRef.value);
+
+
+        //   selectSvg
+
+        //   .selectAll("g")
+        //   .data(props.data)
+        //   .join("g")
+
+        //   .attr("transform", (d, i) => `translate(60, ${i * 21})`) // use attr instead of style
+        //   .append("rect")
+        //   .attr("width", 20 + "px")
+        //   .attr("height", 20 + "px")
+        //   .attr("fill", d3.color("orange"));
+
+
       });
     });
+
+
+
+
 
     return { svgRef };
   },
@@ -43,4 +60,20 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+
+.node circle {
+          fill: #fff;
+          stroke: steelblue;
+          stroke-width: 3px;
+        }
+
+        .link {
+          fill: none;
+          stroke: #ccc;
+          stroke-width: 2px;
+        }
+
+
+
+</style>
