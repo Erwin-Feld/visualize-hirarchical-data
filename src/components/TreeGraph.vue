@@ -60,7 +60,10 @@ export default {
 
         const funcReturn = graph(fam);
 
-       
+           d3.select(selectDivRef.node()).append(function() {
+          return funcReturn;
+        });
+
        
 
         
