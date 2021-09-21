@@ -1,7 +1,8 @@
 <template>
-  <div class="smurck" ref="divRef" >
+  <div class="smurck" >
     <h1>I have this prop</h1>
     <svg ref="svgRef"></svg>
+     <div class="limit" ref="divRef"></div>
   </div>
 </template>
 
