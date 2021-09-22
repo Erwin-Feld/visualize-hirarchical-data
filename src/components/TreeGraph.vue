@@ -1,8 +1,10 @@
 <template>
   <div class="smurck" >
+
+    <div ref="divRef"></div>
+
     <h1>I have this prop</h1>
-    <svg ref="svgRef"></svg>
-     <div class="limit" ref="divRef"></div>
+     <!-- <div class="limit" ref="divRef"></div> -->
   </div>
 </template>
 
@@ -12,7 +14,7 @@ import d3 from '@/assets/d3';
 
 import { onMounted, ref, watchEffect } from "@vue/runtime-core";
 
-
+// import { initialValue } from './initalValue'
 
 
 export default {
@@ -20,51 +22,79 @@ export default {
   props: ["data"],
 
   setup(props) {
-    const divRef = ref(null);
-
+    // const divRef = ref(null);
+    const divRef = ref(null)
     
     onMounted(() => {
+
+      // TODO 
+      // ---> Check if element with class xy exists already if so delete it !!!
+
+      // if div contains class --> remove 
       watchEffect(() => {
 
-        const selectDivRef = d3.select(divRef.value);
-
-        // console.log(props.data)
-        
-        const data = 
-        {
-          name: "root",
-          children: [
-            { name: "child #1" },
-            {
-              name: "child #2",
-              children: [
-                { name: "grandchild #1" },
-                { name: "grandchild #2" },
-                { name: "grandchild #3" },
-              ],
-            },
-          ],
+        if( d3.selectAll('svg.sex')) {
+          console.log(d3.selectAll('svg'))
+          console.log("true")
+          d3.selectAll('svg.sex').remove()
         }
 
-        // TODO // add connection to graph !!!
 
-         const dx = 12;
+        // create a function which detects if props value changes second time
+        // if it does, it will call the function
+        // if it doesn't, it will do nothing
+        // this is to prevent the graph from being redrawn every time the props change
 
-        const dy = 120;
+        //   const div = divRef.value;
+        //   const svg = svgRef.value;
+        //   const width = div.clientWidth;
+        //   const height = div.clientHeight;
 
-        
-        const fam = d3.hierarchy(data);
+
+  
+          // FIXME 
+          // changing data adds a new svg 
 
 
-        const treeLayout = d3.tree().nodeSize([dx, dy]);
 
-        const funcReturn = graph(fam);
+const selectDiv = d3.select(divRef.value);
 
-           d3.select(selectDivRef.node()).append(function() {
-          return funcReturn;
-        });
 
-       
+
+        // selectDiv.classed('selected', true)
+
+        // selectDiv.append("svg").classed('sex', true)
+
+          // .selectAll("g")
+          // .data(Object.values(props.data))
+          // .join("g")
+
+          // .attr("transform", (d, i) => `translate(60, ${i * 21})`) // use attr instead of style
+          // .append("rect")
+          // .attr("width", 20 + "px")
+          // .attr("height", 20 + "px")
+          // .attr("fill", d3.color("orange"));
+
+
+          
+      });
+    });
+// FIXME das ganze wird 2mal ausgeführt !!!
+
+
+// ******************************************************************
+      //   const selectDivRef = d3.select(divRef.value);
+      //  const dx = 12;
+      //   const dy = 120;
+      //   const treeLayout = d3.tree().nodeSize([dx, dy]);
+      //   // TEST
+      //     const fam = d3.hierarchy(props.data);
+
+      //   const funcReturn = graph(fam);
+      //   d3.select(selectDivRef.node()).append(function() {
+      //     return funcReturn;
+      //   });
+   // ******************************************************************    
 
         
 
@@ -148,33 +178,20 @@ export default {
           return svg.node();
         }
 
-      });
-    });
+  
 
 
+      return { divRef } ;
 
-
-
-    return { divRef };
+    // return { divRef };
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-
-.node circle {
-          fill: #fff;
-          stroke: steelblue;
-          stroke-width: 3px;
-        }
-
-        .link {
-          fill: none;
-          stroke: #ccc;
-          stroke-width: 2px;
-        }
-
-
-
+.limit {
+  max-width: 100px;
+}
 </style>

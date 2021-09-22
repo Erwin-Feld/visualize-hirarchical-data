@@ -1,16 +1,12 @@
 <template>
   <img alt="half life logo" src="./assets/logo.png" />
-
+    <tree-graph :data="data" />
   <user-input @transmit-data="receaveData" />
-  <tree-graph :data="data" />
-  <!-- <textarea rows="20" cols="40" v-model="internData"  /> 
- -->
 
 
-  <!-- <button type="button" @click="transformData">click</button>
-   <button type="button" @click="whatFormat">what</button> --> -->
+  <button type="button" @click="changeData">click to change</button>
+   
 
-  <p>{{ data }}</p>
 </template>
 
 <script>
@@ -18,6 +14,8 @@ import UserInput from "./components/UserInput.vue";
 import TreeGraph from "./components/TreeGraph.vue"
 
 
+
+// import {initialValue}  from '../src/assets/d3/initalValue'
 // import { packageJson } from "../src/assets/d3/data";
 
 
@@ -30,7 +28,7 @@ export default {
 
   data() {
     return {
-      data: {prop: "value0"},
+      data: [1],
       internData: "[1, 2, 3]",
       childData: " "
     };
@@ -57,8 +55,9 @@ export default {
 
      
     },
-    whatFormat(){
-      console.log( Object.values(this.internData))
+    changeData(){
+      
+      this.data = [1]
     }
   },
 };

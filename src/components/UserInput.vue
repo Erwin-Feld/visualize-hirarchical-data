@@ -5,7 +5,7 @@
      <textarea  rows="20" cols="40" v-model="userinput" /> 
 
     <button type="button" @click="transmitData">transmit</button>
-    <p>{{userinput}}</p>
+  
 
 </template>
 
@@ -33,17 +33,17 @@ data() {
 
 methods: {
     transmitData(event){
-        let convertedObject = parse(this.userinput)
+        // let convertedObject = parse(this.userinput)
         // 
 
         // makes something different ? 
         // this.userinput = [1,2]
 
 
-
+// 
         // Experimental
         // reasign an Object is different 
-         this.userinput = convertedObject
+         this.userinput = [1,2]
         this.$emit('transmit-data', this.userinput)
     },
       
