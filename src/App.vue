@@ -1,21 +1,23 @@
 <template>
   <img alt="half life logo" src="./assets/logo.png" />
-
+    <tree-graph :data="data" />
   <user-input @transmit-data="receaveData" />
-  <tree-graph :data="data" />
-  <!-- <textarea rows="20" cols="40" v-model="internData"  /> 
- -->
 
 
-  <!-- <button type="button" @click="transformData">click</button>
-   <button type="button" @click="whatFormat">what</button> --> -->
+  <!-- <button type="button" @click="changeData">click to change</button>
+    -->
 
-  <p>{{ childData }}</p>
 </template>
 
 <script>
 import UserInput from "./components/UserInput.vue";
 import TreeGraph from "./components/TreeGraph.vue"
+
+
+
+// import {initialValue}  from '../src/assets/d3/initalValue'
+// import { packageJson } from "../src/assets/d3/data";
+
 
 export default {
   name: "App",
@@ -26,7 +28,7 @@ export default {
 
   data() {
     return {
-      data: [1,2,3],
+      data: ["initial"],
       internData: "[1, 2, 3]",
       childData: " "
     };
@@ -35,8 +37,11 @@ export default {
   methods: {
 
     receaveData(compTransmit){
-      console.log(compTransmit)
-      this.childData = compTransmit
+      
+      // get the value of proxy 
+      this.data = compTransmit
+
+    
 
     },
 
@@ -50,9 +55,7 @@ export default {
 
      
     },
-    whatFormat(){
-      console.log( Object.values(this.internData))
-    }
+ 
   },
 };
 </script>

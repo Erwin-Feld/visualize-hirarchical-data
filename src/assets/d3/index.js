@@ -1,4 +1,4 @@
-import { select, selectAll } from 'd3-selection';
+import { select, selectAll, create } from 'd3-selection';
 
 import { hierarchy, tree } from 'd3-hierarchy';
 
@@ -10,6 +10,7 @@ import { color} from 'd3-color'
 export default {
     select,
     selectAll,
+    create,
 
     hierarchy,
     tree,
