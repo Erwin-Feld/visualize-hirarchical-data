@@ -43,7 +43,7 @@ methods: {
 // 
         // Experimental
         // reasign an Object is different 
-         this.userinput = [1,2]
+         this.userinput = ["changed"]
         this.$emit('transmit-data', this.userinput)
     },
       

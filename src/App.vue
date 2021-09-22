@@ -4,8 +4,8 @@
   <user-input @transmit-data="receaveData" />
 
 
-  <button type="button" @click="changeData">click to change</button>
-   
+  <!-- <button type="button" @click="changeData">click to change</button>
+    -->
 
 </template>
 
@@ -28,7 +28,7 @@ export default {
 
   data() {
     return {
-      data: [1],
+      data: ["initial"],
       internData: "[1, 2, 3]",
       childData: " "
     };
@@ -55,10 +55,7 @@ export default {
 
      
     },
-    changeData(){
-      
-      this.data = [1]
-    }
+ 
   },
 };
 </script>
