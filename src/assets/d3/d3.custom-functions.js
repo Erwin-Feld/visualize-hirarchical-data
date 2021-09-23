@@ -1,23 +1,37 @@
 
+import d3 from "./index";
+
+
 // data change
 
 // data 
 
 
-let root = d3.hierarchy(packageJson, function(d) {
-    if(typeof d == "object")
-     return Object.keys(d).filter(d=>d!="$name").map(k=>{
-       if(typeof d[k] == "object") d[k].$name = k;
-       else d[k] = k + " : " + d[k];
-       return d[k];
-     }); 
-  })
+// let root = d3.hierarchy(packageJson, function(d) {
+//     if(typeof d == "object")
+//      return Object.keys(d).filter(d=>d!="$name").map(k=>{
+//        if(typeof d[k] == "object") d[k].$name = k;
+//        else d[k] = k + " : " + d[k];
+//        return d[k];
+//      }); 
+//   })
 
 // layout function 
 
+function dataTransformation(d) {
+  if(typeof d == "object")
+  return Object.keys(d).filter(d=>d!="$name").map(k=>{
+    if(typeof d[k] == "object") d[k].$name = k;
+    else d[k] = k + " : " + d[k];
+    return d[k];
+  }); 
+
+}
+
+
+
 
 //  *******************************************************************
-
 
 
 
@@ -55,6 +69,7 @@ function graph(
 
   const svg = d3
     .create("svg")
+    .classed("graph", true)
     .attr("viewBox", [0, 0, 33, x1 - x0 + dx * 2])
     .style("overflow", "visible");
 
@@ -105,4 +120,7 @@ function graph(
 
   return svg.node();
 }
+
+export {dataTransformation, graph}
+
 
