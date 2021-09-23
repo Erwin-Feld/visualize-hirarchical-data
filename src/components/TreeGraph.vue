@@ -30,21 +30,118 @@ export default {
            const selectDivRef = d3.select(divRef.value);
 
 
-      const dx = 12;
+         const data = d3.hierarchy(props.data, function (d){
+            if(typeof d == "object")
+  return Object.keys(d).filter(d=>d!="$name").map(k=>{
+    if(typeof d[k] == "object") d[k].$name = k;
+    else d[k] = k + " : " + d[k];
+    return d[k];
+  }); 
 
-        const dy = 120;
+         });
 
-        // data 
-        const data = d3.hierarchy(props.data);
 
-        const treeLayout = d3.tree().nodeSize([dx, dy]);
+    
+var width = 1200;
+var height = 1000;
 
-        // TEST
-        const funcReturn = graph(data);
+const margin = {left: 10, top: 10, right: 50, bottom: 50}
 
-        d3.select(selectDivRef.node()).append(function() {
+       const funcReturn = stackGraph(data, margin, width, height);
+
+  // console.log(funcReturn.node())
+
+  d3.select(selectDivRef.node()).append(function() {
           return funcReturn;
         });
+
+        function dataTransformation(d) {
+  if(typeof d == "object")
+  return Object.keys(d).filter(d=>d!="$name").map(k=>{
+    if(typeof d[k] == "object") d[k].$name = k;
+    else d[k] = k + " : " + d[k];
+    return d[k];
+  }); 
+
+}
+
+      function stackGraph(root, margin, width, height){
+
+  // orthogonale
+
+  const svg = d3.create("svg")
+
+  svg
+  .attr("width", width )
+  .attr("height", height)
+
+  const g = svg.append("g")
+
+  g
+  .attr('transform','translate('+ margin.left +','+ margin.right +')');
+
+  // fill the graph
+  // what are links 
+  // layout function
+  
+
+    // **** layout function *****************
+
+  const tree = d3.tree()
+  .size([height-margin.top-margin.bottom,width-margin.left-margin.right]);
+
+  // **** links *****************
+  const link = g.selectAll(".link")
+  .data(tree(root).links())
+ .join("path")
+  .attr("class", "link")
+  .attr("d", d3.linkHorizontal()
+  .x(function(d) { return d.y; })
+  .y(function(d) { return d.x; }));
+
+
+  // **** nodes *****************
+  const node = g.selectAll(".node")
+  .data(root.descendants())
+  .join("g")
+  .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
+  .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+
+
+  node.append("circle")
+  .attr("r", 2.5);
+  
+node.append("text")
+ .text(function(d) { return d.data.$name || d.data; })
+ .attr('y',-10)
+ .attr('x',-10)
+ .attr('text-anchor','middle');
+
+
+ return svg.node()
+
+}
+
+
+
+
+
+
+
+      // const dx = 12;
+
+      //   const dy = 120;
+
+        // data 
+     
+        // const treeLayout = d3.tree().nodeSize([dx, dy]);
+
+        // // TEST
+        // const funcReturn = graph(data);
+
+        // d3.select(selectDivRef.node()).append(function() {
+        //   return funcReturn;
+        // });
 
     //    const selectDiv = d3.select(divRef.value);
 
@@ -165,7 +262,19 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
-.limit {
+/* .limit {
   max-width: 100px;
-}
+} */
+
+.node circle {
+          fill: #fff;
+          stroke: steelblue;
+          stroke-width: 3px;
+        }
+
+        .link {
+          fill: none;
+          stroke: #ccc;
+          stroke-width: 2px;
+        }
 </style>
