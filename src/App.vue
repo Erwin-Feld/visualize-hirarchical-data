@@ -1,7 +1,8 @@
 <template>
   <img alt="half life logo" src="./assets/logo.png" />
+    <user-input @transmit-data="receaveData" />
+
     <tree-graph :data="data" />
-  <user-input @transmit-data="receaveData" />
 
 
   <!-- <button type="button" @click="changeData">click to change</button>

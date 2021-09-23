@@ -1,8 +1,9 @@
 <template>
   <div class="smurck">
-    <div ref="divRef"></div>
+     <h1>I have this prop</h1>
+    <div class="limit" ref="divRef"></div>
 
-    <h1>I have this prop</h1>
+   
     <!-- <div class="limit" ref="divRef"></div> -->
   </div>
 </template>
@@ -29,25 +30,12 @@ export default {
            const selectDivRef = d3.select(divRef.value);
 
 
-      const dx = 120;
+      const dx = 12;
 
         const dy = 120;
 
         // data 
-        const data = d3.hierarchy({
-          name: "root",
-          children: [
-            { name: "child #1" },
-            {
-              name: "child #2",
-              children: [
-                { name: "grandchild #1" },
-                { name: "grandchild #2" },
-                { name: "grandchild #3" },
-              ],
-            },
-          ],
-        });
+        const data = d3.hierarchy(props.data);
 
         const treeLayout = d3.tree().nodeSize([dx, dy]);
 
@@ -102,7 +90,7 @@ export default {
 
   const svg = d3
     .create("svg")
-    .classed("graph", true)
+    // .classed("graph", true)
     .attr("viewBox", [0, 0, 33, x1 - x0 + dx * 2])
     .style("overflow", "visible");
 
@@ -178,6 +166,6 @@ export default {
 
 <style scoped>
 .limit {
-  max-width: 1000px;
+  max-width: 100px;
 }
 </style>
