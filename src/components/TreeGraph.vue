@@ -34,7 +34,20 @@ export default {
         const dy = 120;
 
         // data 
-        const data = d3.hierarchy(props.data)
+        const data = d3.hierarchy({
+          name: "root",
+          children: [
+            { name: "child #1" },
+            {
+              name: "child #2",
+              children: [
+                { name: "grandchild #1" },
+                { name: "grandchild #2" },
+                { name: "grandchild #3" },
+              ],
+            },
+          ],
+        });
 
         const treeLayout = d3.tree().nodeSize([dx, dy]);
 
@@ -165,6 +178,6 @@ export default {
 
 <style scoped>
 .limit {
-  max-width: 100px;
+  max-width: 1000px;
 }
 </style>
