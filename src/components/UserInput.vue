@@ -37,13 +37,14 @@ methods: {
         // 
 
         // makes something different ? 
-        // this.userinput = [1,2]
+        this.userinput = parse(this.userinput)
+        // 
 
 
 // 
         // Experimental
         // reasign an Object is different 
-         this.userinput = ["changed"]
+       
         this.$emit('transmit-data', this.userinput)
     },
       
