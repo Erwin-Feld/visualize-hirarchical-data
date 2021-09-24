@@ -1,5 +1,5 @@
 <template>
-  <div class="smurck">
+  <div id="treeGraph">
     <h1>I have this prop</h1>
     <div class="limit" ref="divRef"></div>
 
