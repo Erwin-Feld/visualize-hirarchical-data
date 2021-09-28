@@ -1,11 +1,11 @@
 <template>
+    <div id="userInput">
 
 
-     
-     <textarea  rows="20" cols="40" v-model="userinput" /> 
+     <textarea  rows="12" cols="40" v-model="userinput" /> 
 
     <button type="button" @click="transmitData">transmit</button>
-  
+    </div>
 
 </template>
 
@@ -37,13 +37,14 @@ methods: {
         // 
 
         // makes something different ? 
-        // this.userinput = [1,2]
+        this.userinput = parse(this.userinput)
+        // 
 
 
 // 
         // Experimental
         // reasign an Object is different 
-         this.userinput = ["changed"]
+       
         this.$emit('transmit-data', this.userinput)
     },
       
