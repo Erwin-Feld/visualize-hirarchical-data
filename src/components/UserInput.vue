@@ -2,7 +2,7 @@
     <div id="userInput">
 
 
-     <textarea  rows="20" cols="40" v-model="userinput" /> 
+     <textarea  rows="12" cols="40" v-model="userinput" /> 
 
     <button type="button" @click="transmitData">transmit</button>
     </div>

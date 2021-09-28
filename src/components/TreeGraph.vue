@@ -1,7 +1,7 @@
 <template>
-  <div id="treeGraph">
+  <div id="treeGraph" ref="divRef" >
     <h1>I have this prop</h1>
-    <div class="limit" ref="divRef"></div>
+    <!-- <div class="limit" ref="divRef"></div> -->
 
     <!-- <div class="limit" ref="divRef"></div> -->
   </div>
@@ -24,7 +24,17 @@ export default {
     // const divRef = ref(null);
     const divRef = ref(null);
 
+    // get the width and height of the div
+    const getWidth = () => divRef.value.clientWidth;
+    const getHeight = () => divRef.value.clientHeight;
+
+
+
+
     onMounted(() => {
+
+      console.log(`the width of parent is ${getHeight()}`)
+
       const selectDivRef = d3.select(divRef.value);
 
       const data = d3.hierarchy(props.data, function(d) {
@@ -40,9 +50,10 @@ export default {
 
       // const data = d3.hierarchy(props.data);
 
-      var width = 1600;
-      var height = 1000;
+      var width = getWidth();
+      var height = getHeight();
 
+      // TODO what is margin
       const margin = { left: 10, top: 10, right: 30, bottom: 80 };
 
       const funcReturn = stackGraph(data, margin, width, height);
@@ -138,6 +149,7 @@ export default {
         node.append("circle").attr("r", 2.5);
 
         node
+        // FIXme why is text not shown ?
           .append("text")
           .text(function(d) {
             return d.data.$name || d.data;
@@ -406,6 +418,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
+
+#treeGraph{
+  overflow: hidden;
+}
+
 .limit {
   border-style: solid;
   border-color: black;
