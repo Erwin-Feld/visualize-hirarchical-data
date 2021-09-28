@@ -3,7 +3,8 @@
       <header>hier kommt eine Überschrift</header>
     <user-input @transmit-data="receaveData" />
 
-    <tree-graph :data="data" />
+    <!-- <tree-graph :data="data" /> -->
+      <zoom-tree-graph :data="data" />
 
 <footer>Footer</footer>
  </div>
@@ -12,8 +13,10 @@
 
 <script>
 import UserInput from "./components/UserInput.vue";
-import TreeGraph from "./components/TreeGraph.vue"
+// import TreeGraph from "./components/TreeGraph.vue"
+import ZoomTreeGraph from "./components/ZoomTreeGraph.vue"
 
+import packageJson from "../package.json";
 
 
 // import {initialValue}  from '../src/assets/d3/initalValue'
@@ -24,11 +27,12 @@ export default {
   name: "App",
   components: {
     UserInput,
-    TreeGraph,
+    ZoomTreeGraph,
   },
 
   data() {
     return {
+     
       data: {
     name: "root",
     children: [
@@ -43,15 +47,18 @@ export default {
       }
     ]
   },
+
+  
       internData: "[1, 2, 3]",
-      childData: " "
+      childData: packageJson
     };
   },
 
   methods: {
 
     receaveData(compTransmit){
-      
+
+      console.log(typeof packageJson)
       // get the value of proxy 
       this.data = compTransmit
 
@@ -84,7 +91,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 
 :root {
@@ -104,7 +111,7 @@ export default {
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.2fr 1.2fr 1.8fr 0.3fr;
+    grid-template-rows: 0.2fr 0.6fr 2.2fr 0.2fr;
     grid-template-areas:
       "nav nav nav nav"
       "userInput userInput userInput userInput"
@@ -113,10 +120,14 @@ export default {
     grid-gap: 0.5rem;
     font-weight: 800;
     text-transform: uppercase;
+  /* Lab *
+  /* makes font size global !!!/ */
     font-size: 12px;
     color: #004d40;
     text-align: center;
   }
+
+  /* TODO header hat komischen Abstand */
 
   header {
     text-align: center;
@@ -138,6 +149,7 @@ export default {
     grid-area: treeGraph;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);
+     font-size: 6px;
   }
   
 
