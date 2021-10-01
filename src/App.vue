@@ -4,8 +4,11 @@
     <user-input @transmit-data="receaveData" />
 
     <!-- <tree-graph :data="data" /> -->
-      <zoom-tree-graph :data="data" />
-
+      <!-- <zoom-tree-graph :data="data" /> -->
+      <div id="graph-container">
+      <!-- <scaled-svg /> -->
+     <zoom-tree-graph :data="data" />
+      </div>
 <footer>Footer</footer>
  </div>
 
@@ -15,7 +18,7 @@
 import UserInput from "./components/UserInput.vue";
 // import TreeGraph from "./components/TreeGraph.vue"
 import ZoomTreeGraph from "./components/ZoomTreeGraph.vue"
-
+import ScaledSvg from "./components/ScaleSvg.vue";
 import packageJson from "../package.json";
 
 
@@ -27,6 +30,7 @@ export default {
   name: "App",
   components: {
     UserInput,
+    // ScaledSvg
     ZoomTreeGraph,
   },
 
@@ -115,7 +119,7 @@ export default {
     grid-template-areas:
       "nav nav nav nav"
       "userInput userInput userInput userInput"
-      "treeGraph treeGraph treeGraph treeGraph"
+      "graph-container graph-container graph-container graph-container"
       "footer footer footer footer";
     grid-gap: 0.5rem;
     font-weight: 800;
@@ -144,12 +148,12 @@ export default {
     padding-top: var(--main-padding);
   }
   
-  #treeGraph {
-    background: #f1f3f3;
-    grid-area: treeGraph;
+  #graph-container {
+   
+    grid-area: graph-container;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);
-     font-size: 6px;
+    
   }
   
 
@@ -162,7 +166,7 @@ export default {
   }
 
 
-    
+/*     
   @media only screen and (max-width: 550px) {
     .container {
       grid-template-columns: 1fr;
@@ -173,6 +177,6 @@ export default {
         "treeGraph"
         "footer";
     }
-  }
+  } */
   
 </style>
