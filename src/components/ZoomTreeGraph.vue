@@ -1,9 +1,7 @@
 <template>
   <div id="ZoomTreeGraph" ref="divRef">
-    <h1>I have this prop</h1>
-    <!-- <div class="limit" ref="divRef"></div> -->
-
-    <!-- <div class="limit" ref="divRef"></div> -->
+   
+ 
   </div>
 </template>
 
@@ -18,18 +16,12 @@ export default {
   props: ["data"],
 
   setup(props) {
-    // const divRef = ref(null);
+  
     const divRef = ref(null);
 
-    // get the width and height of the div
-    // const getWidth = () => divRef.value.clientWidth;
-    const getHeight = () => divRef.value.clientHeight;
-
     onMounted(() => {
- const getWidth = () => divRef.value.clientWidth;
-       console.log(getWidth())
-    // FIXME 
-    // warum ist get width zu klein ? 
+
+   
          const selectDivRef = d3.select(divRef.value);
 
       const root = d3.hierarchy(props.data, function(d) {
@@ -45,21 +37,27 @@ export default {
       });
 
 
-      // const root = d3.hierarchy(props.data, makeDataHirarchic(d))
 
-  
-        //   var width = getWidth();
-        //   var height = getHeight();
+      // const root = d3.hierarchy(props.data)
 
+ 
       // *** variables **********************
 
       const margin = { top: 10, right: 10, bottom: 10, left: 10 };
 
+ 
+      //  link length
       const dx = 60;
 
-      let dy = 200;
+   
+    // wurde so ermittelt 
+    // dy =  width / packageJson.children.length;
+    // link height
+      let dy = 80;
 
-      const width = 800;
+
+      // make Widht responsive to div width in percantage
+      const width = 1000;
 
 
       const tree = d3.tree().nodeSize([dx, dy]);
@@ -76,6 +74,9 @@ export default {
         return zoomGraph();
       });
 
+
+
+
       function zoomGraph() {
         
         root.x0 = 0;
@@ -83,21 +84,30 @@ export default {
         // --> starting coordinates from the root object
         root.descendants().forEach((d, i) => {
           d.id = i;
-          // TODO
+
           // was wird mit dem index gemacht ?
           d._children = d.children;
           if (d.depth) d.children = null;
         });
-      
+
+      // https://stackoverflow.com/questions/47219272/how-can-i-use-window-size-in-vue-how-do-i-detect-the-soft-keyboard
 
       const svg = d3
         .create("svg")
-        .attr("width", width)
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("width", "100%")
+         .attr("height", "100%")
+        .classed("svg-graph", true)
+        // .attr("width", width)
+        // .attr("height", 300)
         .style("font", "10px sans-serif")
         .style("user-select", "none");
 
-      const g = svg.append("g");
-      //.attr("transform", `translate(${width / 2},${margin.top})`);
+      const g = svg.append("g")
+      // TODO
+      // positon of g element 
+      .attr("transform", `translate(${200},${margin.top})`)
+         .attr("class", "parent-g");
 
       const gLink = g
         .append("g")
@@ -125,11 +135,61 @@ export default {
         });
 
       svg.call(zoomBehaviours);
-
+    // TODO 
+    // ----------> .translateTo(svg, 0, 0), 100 ---> axis !!!
+    // make this scalable 
+    // 0 0 ist ja correct 
+    // ohne animation 
       setTimeout(() => zoomBehaviours.translateTo(svg, 0, 0), 100);
-        // FIXME
+    
         // --> call it if event occours --> changes the data !!!
-      update(root);
+
+     update(root);
+
+
+
+      // Lab*******************************************************
+      // ********** sweet transition *****************************
+//       function collapse(d) {
+//     if (d.children) {
+//       d._children = d.children;
+//       d._children.forEach(collapse);
+//       d.children = null;
+//     }
+//   }
+
+    
+// function collapseAll(){
+//     root.children.forEach(collapse);
+//     collapse(root);
+//     update(root);
+// }
+
+
+//     update(root);
+
+//     function expand(d){   
+//     if (d._children) {        
+//         d.children = d._children;
+//         d._children = null;       
+//     }
+//     var children = (d.children)?d.children:d._children;
+//     if(children)
+//       children.forEach(expand);
+// }
+    
+
+//     function expandAll(){
+//     expand(root); 
+//     update(root);
+// }
+
+// setTimeout(() => expandAll(), 1500);
+
+// setTimeout(() => collapseAll(), 3000);
+
+           // Lab*******************************************
+
 
       function update(source) {
      
@@ -158,6 +218,7 @@ export default {
           .attr("transform", (d) => `translate(${source.y0},${source.x0})`)
           .attr("fill-opacity", 0)
           .attr("stroke-opacity", 0)
+          //  .attr("classed", (d) => (d._children ? "node" : "leaf"))
           // ****changed to version 7**** 
           .on("click", (event,d) => {
               // console.log(`click event ${d}`)
@@ -174,9 +235,11 @@ export default {
 
         const nodeShape = nodeEnter
           .append("circle")
-          .attr("r", 8)
-          .attr("fill", (d) => (d._children ? "#555" : "#999"))
-          .attr("stroke-width", 10);
+           .attr("classed", (d) => (d._children ? "node-" : "leaf"))
+          // .attr("r", 8)
+           .attr("r", (d) => (d._children ? 8 : 5))
+          .attr("fill", (d) => (d._children ? "#42A5F5" : "#999"))
+          .attr("stroke-width", 8);
 
         // ADDed this to work
         // TODO text habe ich umgestellt
@@ -189,17 +252,19 @@ export default {
           })
           .attr("y", -10)
           .attr("x", -10)
+          .attr("stroke-linejoin", "round")
+           .attr("stroke-width", 3)
           .attr("text-anchor", "middle");
 
         // .attr("dy", "0.31em")
-        // .attr("x", d => d._children ? -6 : 6)
-        // .attr("text-anchor", d => d._children ? "end" : "start")
-        // .text(d => d.data.name)
+        // .attr("x", d => d.data ? -6 : 6)
+        // .attr("text-anchor", d => d.data ? "end" : "start")
+        // .text(d => d.data.$name)
         // .clone(true)
-        //.lower()
-        //.attr("stroke-linejoin", "round")
-        //.attr("stroke-width", 3)
-        //.attr("stroke", "white");
+        // .lower()
+        // .attr("stroke-linejoin", "round")
+        // .attr("stroke-width", 3)
+        // .attr("stroke", "white");
 
         // Transition nodes to their new position.
         const nodeUpdate = node
@@ -288,9 +353,7 @@ export default {
       }
 
     });
-
      
-
 
 
     
@@ -346,7 +409,7 @@ export default {
         // --> starting coordinates from the root object
         root.descendants().forEach((d, i) => {
           d.id = i;
-          // TODO
+     
           // was wird mit dem index gemacht ?
           d._children = d.children;
           if (d.depth) d.children = null;
@@ -359,7 +422,10 @@ export default {
         .style("font", "10px sans-serif")
         .style("user-select", "none");
 
-      const g = svg.append("g");
+      const g = svg.append("g")
+      // add a class to the g element name the class g-element
+      // .classed("g-element", true)
+        // .attr("class", "parent-g");
       //.attr("transform", `translate(${width / 2},${margin.top})`);
 
       const gLink = g
@@ -434,15 +500,16 @@ export default {
               //zoomToFit();
             }
           });
-
+        //  Lab
         const nodeShape = nodeEnter
           .append("circle")
-          .attr("r", 8)
+          .attr("r",  (d) => (d._children ? 18 : 4))
+          .attr("classed", (d) => (d._children ? "node-" : "leaf-"))
           .attr("fill", (d) => (d._children ? "#555" : "#999"))
           .attr("stroke-width", 10);
 
         // ADDed this to work
-        // TODO text habe ich umgestellt
+
         // passt das so ?
         nodeEnter
           .append("text")
@@ -552,13 +619,11 @@ export default {
 
        
 
-
       }
     );
 
     return { divRef };
-
-    // return { divRef };
+  
   },
 };
 </script>
@@ -566,9 +631,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
-#treeGraph {
-  overflow: hidden;
+#ZoomTreeGraph {
+   height: 100%;
+    width: 100%;
+   
+  
 }
+
+/* .svg-graph {
+   width: 100%;
+   height: 100%;
+    background: rgb(165, 165, 172);
+} */
 
 .limit {
   border-style: solid;
@@ -576,15 +650,17 @@ export default {
   border-width: 3px;
 }
 
-.node circle {
+/* .node circle {
   fill: #fff;
-  stroke: steelblue;
+  stroke: rgb(49, 56, 61);
   stroke-width: 3px;
-}
+} */
 
 .link {
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;
 }
+
+
 </style>
