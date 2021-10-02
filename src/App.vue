@@ -38,9 +38,9 @@ export default {
     return {
      
       data: {
-    name: "root",
-    children: [
-      {name: "child #1"},
+    prop: "dead branch",
+    branch: [
+      {prop: "leaf"},
       {
         name: "child #2",
         children: [
