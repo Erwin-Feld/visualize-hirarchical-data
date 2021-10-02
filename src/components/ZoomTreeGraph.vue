@@ -100,7 +100,7 @@ export default {
         .classed("svg-graph", true)
         // .attr("width", width)
         // .attr("height", 300)
-        .style("font", "10px sans-serif")
+        .style("font", "7px monospace")
         .style("user-select", "none");
 
       const g = svg.append("g")
@@ -140,7 +140,14 @@ export default {
     // make this scalable 
     // 0 0 ist ja correct 
     // ohne animation 
-      setTimeout(() => zoomBehaviours.translateTo(svg, 0, 0), 100);
+      setTimeout(() => {
+
+        // 
+        console.log(divRef.value.clientWidth)
+        const parentWidth = divRef.value.clientWidth;
+        const parentHeight = divRef.value.clientHeight;
+
+        zoomBehaviours.translateTo(svg, parentWidth/4, parentHeight/6), 100});
     
         // --> call it if event occours --> changes the data !!!
 
@@ -237,9 +244,15 @@ export default {
           .append("circle")
            .attr("classed", (d) => (d._children ? "node-" : "leaf"))
           // .attr("r", 8)
-           .attr("r", (d) => (d._children ? 8 : 5))
-          .attr("fill", (d) => (d._children ? "#42A5F5" : "#999"))
-          .attr("stroke-width", 8);
+           .attr("r", (d) => (d._children ? 6 : 3))
+        // Lab***************
+            .attr("fill", (d) => (d._children ? "none" : "#999"))
+          .attr("stroke", (d) => (d._children ? "#F8485E" : "#999"))
+          .attr("stroke-width", 3)
+          .on("mouseover", (d)=> {
+            console.log(this)
+            // console.log("hover")
+          } )
 
         // ADDed this to work
         // TODO text habe ich umgestellt
@@ -254,12 +267,13 @@ export default {
           .attr("x", -10)
           .attr("stroke-linejoin", "round")
            .attr("stroke-width", 3)
+          //  .attr("text-anchor", d => d.data ? "end" : "start")
           .attr("text-anchor", "middle");
 
         // .attr("dy", "0.31em")
         // .attr("x", d => d.data ? -6 : 6)
         // .attr("text-anchor", d => d.data ? "end" : "start")
-        // .text(d => d.data.$name)
+        // .text(d => d.data.$name || d.data)
         // .clone(true)
         // .lower()
         // .attr("stroke-linejoin", "round")
@@ -432,7 +446,7 @@ export default {
         .append("g")
         .attr("fill", "none")
         .attr("stroke", "#555")
-        .attr("stroke-opacity", 0.4)
+        .attr("stroke-opacity", 0.7)
         .attr("stroke-width", 1.5);
 
       // **************** zoom event ************************
@@ -637,6 +651,11 @@ export default {
    
   
 }
+
+/* .node-{
+  fill: rgb(187, 255, 0);
+
+} */
 
 /* .svg-graph {
    width: 100%;
