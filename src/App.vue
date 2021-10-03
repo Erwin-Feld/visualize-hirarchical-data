@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style>
-/* TODO add 
+
 /* add Inter  */
 /* https://reactgo.com/add-fonts-vue-app/ */
 #app {
