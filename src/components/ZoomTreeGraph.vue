@@ -32,7 +32,7 @@ export default {
 
       // selects the div parent and append the svg element to it 
       d3.select(selectDivRef.node()).append(function() {
-        return zoomGraph(d3, root, dx, dy, divRef);
+        return zoomGraph(d3, root, dx, dy, divRef, props.data);
       });
 
     });
@@ -44,7 +44,9 @@ export default {
       // creates a new one with the current data
       () => props.data,
       (changedValue, initalValue) => {
-        console.log(initalValue);
+        // console.log(initalValue);
+
+         console.log(Array.isArray(changedValue))
         d3.selectAll("svg").remove();
 
         // *** creates new one 
@@ -63,7 +65,7 @@ export default {
 
       // selects the div parent and append the svg element to it 
       d3.select(selectDivRef.node()).append(function() {
-        return zoomGraph(d3, root, dx, dy, divRef);
+        return zoomGraph(d3, root, dx, dy, divRef, props.data);
       });
 
 
@@ -76,7 +78,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
 #ZoomTreeGraph {
