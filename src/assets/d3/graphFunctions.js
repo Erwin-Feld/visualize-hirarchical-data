@@ -154,7 +154,7 @@ function makeDataHirarchic(d) {
         .attr("x", -10)
         .attr("stroke-linejoin", "round")
         .attr("stroke-width", 3)
-         // Add add root text on start if data is array  
+         //adds root text on start if data is array  
          .attr("text-anchor", d => d.data ? "end" : "start")
 
       } else {
