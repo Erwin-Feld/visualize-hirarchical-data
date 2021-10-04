@@ -1,4 +1,6 @@
 # visualize-hirarchical-data
+### website name VisuallyData.com
+#### displayjson.com
 
 ## Project setup
 ```
