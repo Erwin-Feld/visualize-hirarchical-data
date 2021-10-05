@@ -3,6 +3,16 @@
     <textarea class="dataInput" cols="50" rows="12" v-model="userinput" />
 
     <button type="button" @click="transmitData">transmit</button>
+
+    <div class="error" v-if="this.errorContent">
+      <!-- Add v-bind change class class deletes second p to make error div bigger -->
+      <!-- see https://stackoverflow.com/questions/43210508/vue-js-conditional-class-style-binding -->
+       <!-- {{this.errorContent}} -->
+       <pop-up :errorMessage="this.errorContent" @changeValue="receaveData" />
+       <!-- Add  change value from chid component -->
+       <!-- <button @click="this.errorContent = false">x</button> -->
+    </div>
+
   </div>
 </template>
 
@@ -10,8 +20,10 @@
 // import { ref } from "@vue/runtime-core";
 
 import { parse } from "json5";
+import PopUp from './PopUp.vue';
 
 export default {
+  components: { PopUp },
   // https://stackoverflow.com/a/69194446/14809198
   emits: ["transmit-data"],
 
@@ -33,16 +45,23 @@ export default {
         ],
       }, undefined, 4),
       dataTransmit: "",
-      placeHolder: {}, 
+      placeHolder: {},
+      errorContent: "", 
     };
   },
 
   methods: {
+
+    receaveData(receaveValue){
+      this.errorContent = receaveValue;
+      
+    },
+
     transmitData(event) {
  
       try {
 
-        console.log(this.userinput)
+        console.log(this.errorContent)
 
          this.dataTransmit = parse(this.userinput);
 
@@ -51,8 +70,9 @@ export default {
     
       // makes something different ?
       } catch(e) {
-        // Add display error on app 
-        console.log(e)
+        // Add display error on app
+        this.errorContent = e; 
+        // console.log(e)
 
       }
     
