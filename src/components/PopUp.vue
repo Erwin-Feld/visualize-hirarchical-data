@@ -1,6 +1,7 @@
 <template>
-    <h1>{{errorMessage}}</h1>
+   
      <button @click="changeData">x</button>
+      <p>{{errorMessage}}</p>
 </template>
 
 <script>

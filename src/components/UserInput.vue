@@ -3,12 +3,18 @@
     <textarea class="dataInput" cols="50" rows="12" v-model="userinput" />
 
     <button type="button" @click="transmitData">transmit</button>
+  <div>
+    <!-- Add  -->
+  <!-- this syntax wenn falsch display paragraph inside div  -->
+  <!-- else display error inside div which contains paragraph end button on top -->
 
-    <div class="error" v-if="this.errorContent">
+    <p class="error" v-if="! this.errorContent">achte auf correcte formatierung </p>
       <!-- Add v-bind change class class deletes second p to make error div bigger -->
       <!-- see https://stackoverflow.com/questions/43210508/vue-js-conditional-class-style-binding -->
        <!-- {{this.errorContent}} -->
-       <pop-up :errorMessage="this.errorContent" @changeValue="receaveData" />
+       <pop-up v-else :errorMessage="this.errorContent" @changeValue="receaveData" />
+
+       
        <!-- Add  change value from chid component -->
        <!-- <button @click="this.errorContent = false">x</button> -->
     </div>
