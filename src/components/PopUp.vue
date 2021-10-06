@@ -1,7 +1,9 @@
 <template>
+   <div class="user-input__container-right">
    
-     <button @click="changeData">x</button>
-      <p>{{errorMessage}}</p>
+        <button @click="changeData">x</button>
+         <p>{{errorMessage}}</p>
+   </div>
 </template>
 
 <script>
@@ -19,3 +21,16 @@ export default {
     
 }
 </script>
+
+<style scoped>
+
+  .user-input__container-right{
+     grid-area: user-input__container-right;
+        display: flex;
+        flex-direction: column;
+
+      font-size: 6px;
+      background: white;
+   }
+
+</style>
