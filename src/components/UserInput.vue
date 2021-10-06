@@ -34,33 +34,14 @@
 
     <textarea class="data-insert" cols="50" rows="12" v-model="userinput" />
 
-    <div class="user-input__container-right">
+    <!-- change container -->
+    <div v-if="!this.errorContent" class="user-input__container-right">
+       
          <p class="container-right__text-right">make sure its properly formated zoom it move it as you like !</p>
          <button class="display-button" type="button" @click="transmitData">transmit</button>
-
+          
     </div>
-
-  <!-- Lab -->
-
-          <!-- <div> -->
-    <!-- Add  -->
-  <!-- this syntax wenn falsch display paragraph inside div  -->
-  <!-- else display error inside div which contains paragraph end button on top -->
-
-      <!-- <p class="error" v-if="! this.errorContent">achte auf correcte formatierung </p> -->
-
-      <!-- Add v-bind change class class deletes second p to make error div bigger -->
-
-      <!-- see https://stackoverflow.com/questions/43210508/vue-js-conditional-class-style-binding -->
-       <!-- {{this.errorContent}} -->
-       <!-- <pop-up v-else :errorMessage="this.errorContent" @changeValue="receaveData" /> -->
-
-       
-       <!-- Add  change value from chid component -->
-       <!-- <button @click="this.errorContent = false">x</button> -->
-
-    <!-- </div> -->
-   <!-- Lab -->
+    <pop-up v-else :errorMessage="this.errorContent"  @changeValue="receaveData" />
 
 
   </div>
@@ -78,6 +59,8 @@ export default {
   emits: ["transmit-data"],
 
   //  WORKS !!!
+  // FIXME
+  // modifed the data here --> there is a re load 
   data() {
     return {
       userinput: JSON.stringify({
@@ -96,7 +79,7 @@ export default {
       }, undefined, 4),
       dataTransmit: "",
       placeHolder: {},
-      errorContent: "", 
+      errorContent: "",
     };
   },
 
@@ -111,8 +94,7 @@ export default {
  
       try {
 
-        console.log(this.errorContent)
-
+  
          this.dataTransmit = parse(this.userinput);
 
         // console.log(Array.isArray(this.dataTransmit))
@@ -181,7 +163,6 @@ export default {
    }
 
 
-   
 
 
 </style>
