@@ -38,16 +38,18 @@ export default {
     });
 
     watch(
-
+        // FIXME
+          // why is data cnahged added wenn clickedo n button ?
       // watches for data 
       // deletes the svg with outdated data
       // creates a new one with the current data
       () => props.data,
       (changedValue, initalValue) => {
-        // console.log(initalValue);
+       
+        // console.log(changedValue);
 
-         console.log(Array.isArray(changedValue))
-        d3.selectAll("svg").remove();
+        //  console.log(Array.isArray(changedValue))
+        d3.selectAll(".svg-graph").remove();
 
         // *** creates new one 
        // *** variables **********************
