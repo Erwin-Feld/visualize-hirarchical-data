@@ -18,7 +18,6 @@ export default {
     onMounted(() => {
 
        // *** variables **********************
-
       const selectDivRef = d3.select(divRef.value);
 
       const root = d3.hierarchy(props.data, makeDataHirarchic);
