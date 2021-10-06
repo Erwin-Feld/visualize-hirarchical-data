@@ -105,10 +105,10 @@ export default {
       "footer footer footer footer";
     grid-gap: 0.5rem;
     font-weight: 800;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     /* Add change font size to mange in every component */
   /* makes font size global !!!/ */
-    font-size: 12px;
+    /* font-size: 12px; */
     color: #004d40;
     text-align: center;
   }
