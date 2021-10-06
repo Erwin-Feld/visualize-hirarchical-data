@@ -90,19 +90,23 @@ export default {
   
 
 .container {
-    display: grid;
     height: 100vh;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 0.2fr 0.6fr 2.2fr 0.2fr;
     grid-template-areas:
       "nav nav nav nav"
-      "userInput userInput userInput userInput"
+      "user-input user-input user-input user-input"
       "graph-container graph-container graph-container graph-container"
       "footer footer footer footer";
     grid-gap: 0.5rem;
     font-weight: 800;
     text-transform: uppercase;
-  /* Lab *
+    /* Add change font size to mange in every component */
   /* makes font size global !!!/ */
     font-size: 12px;
     color: #004d40;
@@ -119,13 +123,13 @@ export default {
     padding-top: var(--main-padding);
   }
 
-  #userInput {
+   /* #user-input {
     background: #6fffd2;
-    grid-area: userInput;
+    grid-area: user-input;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);
-  }
-  
+  } 
+   */
   #graph-container {
    
     grid-area: graph-container;
