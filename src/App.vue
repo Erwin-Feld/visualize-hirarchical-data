@@ -1,29 +1,25 @@
 <template>
    <div class="container">
-      <header>hier kommt eine Überschrift</header>
+      <header>Visualize nested data structures </header>
     <user-input @transmit-data="receaveData" />
 
-    <!-- <tree-graph :data="data" /> -->
-      <!-- <zoom-tree-graph :data="data" /> -->
       <div id="graph-container">
-      <!-- <scaled-svg /> -->
-     <zoom-tree-graph :data="data" />
+   
+     <zoom-tree-graph :data="graphData" />
       </div>
-<footer>Footer</footer>
+<footer>
+  <p>interested ? conntect me erwinfeld.dev@gmail.com</p>
+</footer>
  </div>
 
 </template>
 
 <script>
 import UserInput from "./components/UserInput.vue";
-// import TreeGraph from "./components/TreeGraph.vue"
 import ZoomTreeGraph from "./components/ZoomTreeGraph.vue"
-import ScaledSvg from "./components/ScaleSvg.vue";
+
 import packageJson from "../package.json";
 
-
-// import {initialValue}  from '../src/assets/d3/initalValue'
-// import { packageJson } from "../src/assets/d3/data";
 
 
 export default {
@@ -37,7 +33,7 @@ export default {
   data() {
     return {
      
-      data: {
+      graphData: {
     prop: "dead branch",
     branch: [
       {prop: "leaf"},
@@ -51,43 +47,25 @@ export default {
       }
     ]
   },
-
   
-      internData: "[1, 2, 3]",
-      childData: packageJson
     };
   },
 
   methods: {
 
     receaveData(compTransmit){
-
-      console.log(typeof packageJson)
       // get the value of proxy 
-      this.data = compTransmit
-
-    
-
+      this.graphData = compTransmit
     },
-
-    transformData() {
-      //
-      //
-      this.internData = JSON.parse(this.internData);
-
-     
-      //  this.internData.push(12);
-
-     
-    },
+ 
  
   },
 };
 </script>
 
 <style>
-/* TODO add 
-/* add Inter  */
+
+/* Add Inter  */
 /* https://reactgo.com/add-fonts-vue-app/ */
 #app {
   font-family: "Inter", sans-serif;
@@ -112,26 +90,30 @@ export default {
   
 
 .container {
-    display: grid;
     height: 100vh;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 0.2fr 0.6fr 2.2fr 0.2fr;
     grid-template-areas:
       "nav nav nav nav"
-      "userInput userInput userInput userInput"
+      "user-input user-input user-input user-input"
       "graph-container graph-container graph-container graph-container"
       "footer footer footer footer";
     grid-gap: 0.5rem;
     font-weight: 800;
-    text-transform: uppercase;
-  /* Lab *
+    /* text-transform: uppercase; */
+    /* Add change font size to mange in every component */
   /* makes font size global !!!/ */
-    font-size: 12px;
+    /* font-size: 12px; */
     color: #004d40;
     text-align: center;
   }
 
-  /* TODO header hat komischen Abstand */
+  /* Add header hat komischen Abstand */
 
   header {
     text-align: center;
@@ -141,13 +123,13 @@ export default {
     padding-top: var(--main-padding);
   }
 
-  #userInput {
+   /* #user-input {
     background: #6fffd2;
-    grid-area: userInput;
+    grid-area: user-input;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);
-  }
-  
+  } 
+   */
   #graph-container {
    
     grid-area: graph-container;

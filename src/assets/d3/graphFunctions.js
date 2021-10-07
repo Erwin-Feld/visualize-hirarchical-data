@@ -15,7 +15,7 @@ function makeDataHirarchic(d) {
 
 
 
- function zoomGraph(d3, root, dx, dy, divRef) {
+ function zoomGraph(d3, root, dx, dy, divRef, transmitData) {
     // d3 --> library
     //  root --> data transformed hirarchically
     // dx --> starting x coordinates
@@ -143,19 +143,47 @@ function makeDataHirarchic(d) {
       .attr("fill", (d) => (d._children ? "none" : "#999"))
       .attr("stroke", (d) => (d._children ? "#F8485E" : "#999"))
       .attr("stroke-width", 3);
+    
+      if (Array.isArray(transmitData)) {
+        nodeEnter
+        .append("text")
+        .text(function(d) {
+          return d.data.$name || d.data;
+        })
+        .attr("y", -10)
+        .attr("x", -10)
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-width", 3)
+         //adds root text on start if data is array  
+         .attr("text-anchor", d => d.data ? "end" : "start")
 
-    nodeEnter
-      .append("text")
+      } else {
 
-      .text(function(d) {
-        return d.data.$name || d.data;
-      })
-      .attr("y", -10)
-      .attr("x", -10)
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-width", 3)
-      //  .attr("text-anchor", d => d.data ? "end" : "start")
-      .attr("text-anchor", "middle");
+        nodeEnter
+        .append("text")
+        .text(function(d) {
+          return d.data.$name || d.data;
+        })
+        .attr("y", -10)
+        .attr("x", -10)
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-width", 3)
+        .attr("text-anchor", "middle");
+
+      }
+
+    // nodeEnter
+    //   .append("text")
+    //   .text(function(d) {
+    //     return d.data.$name || d.data;
+    //   })
+    //   .attr("y", -10)
+    //   .attr("x", -10)
+    //   .attr("stroke-linejoin", "round")
+    //   .attr("stroke-width", 3)
+    //  
+    //    .attr("text-anchor", d => d.data ? "end" : "start")
+    //   // .attr("text-anchor", "middle");
 
     const nodeUpdate = node
       .merge(nodeEnter)
