@@ -20,6 +20,9 @@ export default {
        // *** variables **********************
       const selectDivRef = d3.select(divRef.value);
 
+      // Add make a clone of object to prevent mutation from makeDAtaHirarch
+      // const dataClone = Object.assign({}, props.data)
+
       const root = d3.hierarchy(props.data, makeDataHirarchic);
      
       //  link length
@@ -45,7 +48,7 @@ export default {
       () => props.data,
       (changedValue, initalValue) => {
        
-        // console.log(changedValue);
+        console.log(JSON.stringify(changedValue));
 
         //  console.log(Array.isArray(changedValue))
         d3.selectAll(".svg-graph").remove();
@@ -55,6 +58,7 @@ export default {
 
       const selectDivRef = d3.select(divRef.value);
 
+      // Add make a copy of object
       const root = d3.hierarchy(props.data, makeDataHirarchic);
      
       //  link length
