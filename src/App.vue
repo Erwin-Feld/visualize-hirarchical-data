@@ -54,6 +54,7 @@ export default {
   methods: {
 
     receaveData(compTransmit){
+     
       // get the value of proxy 
       this.graphData = compTransmit
     },
