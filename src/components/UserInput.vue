@@ -1,6 +1,5 @@
 <template>
   <div class="user-input">
-
     <div class="user-input__container-left">
          <p class="container-left__text-left">insert your data structure
             [arrays] ,
@@ -26,7 +25,7 @@
 
     </div>
 
-    <textarea class="data-insert" cols="50" rows="12" v-model="userinput" :placeholder="this.placeHolder" />
+    <textarea class="data-insert" cols="50" rows="12" v-model="this.userinput"  :placeholder="this.placeHolder" />
 
     <!-- change container -->
     <div v-if="!this.errorContent" class="user-input__container-right">
@@ -44,7 +43,7 @@
 <script>
 // import { ref } from "@vue/runtime-core";
 
-import { parse } from "json5";
+import { parse, stringify } from "json5";
 import PopUp from './PopUp.vue';
 
 export default {
@@ -58,15 +57,17 @@ export default {
   // modifed the data here --> there is a re load 
   data() {
     return {
-      userinput: JSON.stringify(this.parentData,undefined,4),
+      userinput: "",
       dataTransmit: "",
       placeHolder: JSON.stringify(this.parentData,undefined,4),
       errorContent: "",
+    
     };
   },
 
   methods: {
 
+    // receave error message and displays it
     receaveData(receaveValue){
       this.errorContent = receaveValue;
       
@@ -76,15 +77,22 @@ export default {
  
       try {
         // if data changed
-        if( JSON.stringify(this.parentData) !== this.userinput)
-      
-          {   
+        // check for empty string 
+        // Add check if empty 
+        
               this.dataTransmit = parse(this.userinput)
-                this.$emit("transmit-data", this.dataTransmit);
-          } else {
-            console.log("same")
-          }
-      
+              // mit objecten was anderes als mit arrays !!
+          //  FIXME wieso wurde das net mehr als array erkant ? 
+          // console.log(stringify(this.parentData))
+
+                // test
+              if(stringify(this.dataTransmit) !== stringify(this.parentData)) {
+                console.log("data change")
+                   this.$emit("transmit-data", this.dataTransmit);
+     
+              }
+
+               
         
        
        
@@ -139,6 +147,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center; 
+    margin-left: 3px;
     
     font-family: 'Roboto Mono', monospace;
     font-weight: 500;
