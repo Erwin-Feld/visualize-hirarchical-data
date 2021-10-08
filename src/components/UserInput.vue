@@ -31,11 +31,11 @@
     <div v-if="!this.errorContent" class="user-input__container-right">
        
          <p class="container-right__text-right"> zoom, drag the graph is you like !</p>
-         <button class="display-button" type="button" @click="transmitData">transmit</button>
-          
+         <button class="display-button" type="button" @click="transmitData">render</button>
+          <p v-if="this.emptyFlag" class="container-right__text-empty-reminder"> insert data first!</p>
     </div>
     <pop-up v-else :errorMessage="this.errorContent"  @changeValue="receaveData" />
-
+    
 
   </div>
 </template>
@@ -61,6 +61,7 @@ export default {
       dataTransmit: "",
       placeHolder: JSON.stringify(this.parentData,undefined,4),
       errorContent: "",
+      emptyFlag: false,
     
     };
   },
@@ -80,21 +81,31 @@ export default {
         // check for empty string 
         // Add check if empty 
         
+            if(this.userinput) {
+                this.emptyFlag = false;
+              
               this.dataTransmit = parse(this.userinput)
               // mit objecten was anderes als mit arrays !!
-          //  FIXME wieso wurde das net mehr als array erkant ? 
-          // console.log(stringify(this.parentData))
+             //  FIXME wieso wurde das net mehr als array erkant ? 
+              // console.log(stringify(this.parentData))
 
-                // test
+                    // test
               if(stringify(this.dataTransmit) !== stringify(this.parentData)) {
                 console.log("data change")
                    this.$emit("transmit-data", this.dataTransmit);
      
               }
 
-               
+
+
+            } else {
+              this.emptyFlag = true;
+              this.placeHolder = "";
+            }
+
+            
+
         
-       
        
         
     
@@ -164,7 +175,16 @@ export default {
 .data-insert {
   grid-area: data-insert;
     font-size: 8px;
+    border-radius: 2%;
+    
 }
+
+
+textarea:focus::placeholder {
+  color: transparent;
+}
+
+
 /* Add change placeholder color font */
 
    .user-input__container-right{
@@ -172,6 +192,7 @@ export default {
        margin-right: 5px;
      display: flex;
       flex-direction: column;
+      gap: 20px;
     font-family: 'Roboto Mono', monospace;
       font-size: 0.5rem;
       align-items: center;
@@ -179,6 +200,49 @@ export default {
    }
 
 
+.display-button {
+    /* grid-area: component-1__button ; */
+    font-size: 1.2em;
+    min-width: 50px;
+    min-height: 30px;
+    max-width: 20%;
+    
+    max-height: 50%;
+    border-radius: 20%;
+    box-shadow: 0 4px #A8A8A8;
+    /* border-radius: 7%; */
+    /* width: 7%;
+    height: 5%; */
+    font-family: "Inter", sans-serif;
+     text-shadow: 1px 2px 2.5px rgba(122, 122, 128, 0.51);
+   font-weight: 600;
+   background-image: linear-gradient(-270deg, rgba(255,255,255,0.00) 0%, #FFFFFF 20%, #FFFFFF 80%, rgba(255,255,255,0.00) 100%); 
+
+
+
+    outline: none;
+}
+
+.display-button:active {
+   background: #E2B9F7;
+  
+    box-shadow: 3 4px #666;
+    color: #141414;
+    font-weight: 1000;
+    transform: translateY(7px);
+
+}
+
+.display-button:active.container-right__text-empty-reminder {
+    color: #e948f8;
+
+}
+
+
+.container-right__text-empty-reminder {
+   color: #F8485E;
+    font-weight: 1000;
+}
 
 
 </style>
