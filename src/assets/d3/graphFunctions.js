@@ -1,11 +1,11 @@
-
+import {cloneDeep} from 'lodash'
 
 // d3.hierarchy funciton inside 
 // use if function is to create clone of data 
 function customHierarchy(d3, parentData, makeDataHirarchic) {
+
   // create shallow copy of data to prevent mutation from
-  // makeDataHirarchic function 
-  const clone = Object.assign({},parentData)
+  const clone = cloneDeep(parentData)
 
   return d3.hierarchy(clone, makeDataHirarchic)
 
@@ -27,7 +27,7 @@ function makeDataHirarchic(d) {
       });
 }
 
-
+// FIXME array check einbauen 
 
  function zoomGraph(d3, root, dx, dy, divRef, transmitData) {
     // d3 --> library
@@ -157,7 +157,7 @@ function makeDataHirarchic(d) {
       .attr("fill", (d) => (d._children ? "none" : "#999"))
       .attr("stroke", (d) => (d._children ? "#F8485E" : "#999"))
       .attr("stroke-width", 3);
-    
+    // FIXME
       if (Array.isArray(transmitData)) {
         nodeEnter
         .append("text")
