@@ -6,7 +6,7 @@
 import d3 from "@/assets/d3";
 import { makeDataHirarchic, zoomGraph, customHierarchy } from "../assets/d3/graphFunctions";
 
-import { onMounted, ref, watch, watchEffect } from "@vue/runtime-core";
+import { onMounted, ref, watch } from "@vue/runtime-core";
 
 export default {
   name: "ZoomTreeGraph",
@@ -41,8 +41,6 @@ export default {
        
       () => props.data,
       (changedValue, initalValue) => {
-       console.log(Array.isArray(changedValue))
-        //  console.log(Array.isArray(changedValue))
         d3.selectAll(".svg-graph").remove();
 
         // *** creates new one 
