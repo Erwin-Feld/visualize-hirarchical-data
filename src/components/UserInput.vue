@@ -2,8 +2,7 @@
   <div class="user-input">
     <div class="user-input__container-left">
          <p class="container-left__text-left">insert your data structure
-            [arrays] ,
-          {key: "value"}
+            [arrays],{objects/dicts}
            or JSON
          </p>
           <svg 
@@ -91,7 +90,7 @@ export default {
 
                     // test
               if(stringify(this.dataTransmit) !== stringify(this.parentData)) {
-                console.log("data change")
+              
                    this.$emit("transmit-data", this.dataTransmit);
      
               }
@@ -112,7 +111,12 @@ export default {
     
       // makes something different ?
       } catch(e) {
-        // Add display error on app
+
+  //       const x = JSON.stringify(e)
+  //       console.log(x)
+  //       // Add display error on app
+  //       // console.log(e)
+  //  console.log(Object.entries(e))
         this.errorContent = e; 
         // console.log(e)
 
@@ -186,6 +190,7 @@ textarea:focus::placeholder {
 
 
 /* Add change placeholder color font */
+/* FIXME   css class gets not changed  */
 
    .user-input__container-right{
        grid-area: user-input__container-right;
