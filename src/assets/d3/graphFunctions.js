@@ -17,17 +17,15 @@ function customHierarchy(d3, parentData, makeDataHirarchic) {
 function makeDataHirarchic(d) {
 
 
-  if (typeof d == "object")
+  if (typeof d === "object")
     return Object.keys(d)
-      .filter((d) => d != "$name")
+      .filter((d) => d !== "$name")
       .map((k) => {
-        if (typeof d[k] == "object") d[k].$name = k;
+        if (typeof d[k] === "object") d[k].$name = k;
         else d[k] = k + " : " + d[k];
         return d[k];
       });
 }
-
-// FIXME array check einbauen 
 
  function zoomGraph(d3, root, dx, dy, divRef, transmitData) {
     // d3 --> library
@@ -153,11 +151,10 @@ function makeDataHirarchic(d) {
       .attr("classed", (d) => (d._children ? "node-" : "leaf"))
       // .attr("r", 8)
       .attr("r", (d) => (d._children ? 6 : 3))
-      // Lab***************
       .attr("fill", (d) => (d._children ? "none" : "#999"))
       .attr("stroke", (d) => (d._children ? "#F8485E" : "#999"))
       .attr("stroke-width", 3);
-    // FIXME
+
       if (Array.isArray(transmitData)) {
         nodeEnter
         .append("text")
