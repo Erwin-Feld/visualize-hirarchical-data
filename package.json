@@ -16,6 +16,7 @@
     "d3-transition": "^3.0.1",
     "d3-zoom": "^3.0.0",
     "json5": "^2.2.0",
+    "lodash": "^4.17.21",
     "vue": "^3.0.0"
   },
   "devDependencies": {

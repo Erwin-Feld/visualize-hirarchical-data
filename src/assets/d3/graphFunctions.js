@@ -1,19 +1,31 @@
+import {cloneDeep} from 'lodash'
 
+// d3.hierarchy funciton inside 
+// use if function is to create clone of data 
+function customHierarchy(d3, parentData, makeDataHirarchic) {
+
+  // create shallow copy of data to prevent mutation from
+  const clone = cloneDeep(parentData)
+
+  return d3.hierarchy(clone, makeDataHirarchic)
+
+}
 
 // takes json and js objects trnasforms them
 //  for d3.hirarchy function exabtable
+
 function makeDataHirarchic(d) {
-  if (typeof d == "object")
+
+
+  if (typeof d === "object")
     return Object.keys(d)
-      .filter((d) => d != "$name")
+      .filter((d) => d !== "$name")
       .map((k) => {
-        if (typeof d[k] == "object") d[k].$name = k;
+        if (typeof d[k] === "object") d[k].$name = k;
         else d[k] = k + " : " + d[k];
         return d[k];
       });
 }
-
-
 
  function zoomGraph(d3, root, dx, dy, divRef, transmitData) {
     // d3 --> library
@@ -49,7 +61,7 @@ function makeDataHirarchic(d) {
     .attr("width", "100%")
     .attr("height", "100%")
     .classed("svg-graph", true)
-    .style("font", "7px monospace")
+    .style("font", "8px monospace")
     .style("user-select", "none");
 
   const g = svg
@@ -62,7 +74,7 @@ function makeDataHirarchic(d) {
     .attr("fill", "none")
     .attr("stroke", "#555")
     .attr("stroke-opacity", 0.4)
-    .attr("stroke-width", 1.5);
+    .attr("stroke-width", 1.8);
 
   // **************** zoom event ************************
 
@@ -139,11 +151,10 @@ function makeDataHirarchic(d) {
       .attr("classed", (d) => (d._children ? "node-" : "leaf"))
       // .attr("r", 8)
       .attr("r", (d) => (d._children ? 6 : 3))
-      // Lab***************
       .attr("fill", (d) => (d._children ? "none" : "#999"))
       .attr("stroke", (d) => (d._children ? "#F8485E" : "#999"))
       .attr("stroke-width", 3);
-    
+
       if (Array.isArray(transmitData)) {
         nodeEnter
         .append("text")
@@ -271,7 +282,7 @@ function makeDataHirarchic(d) {
 }
 
 
-export {zoomGraph, makeDataHirarchic}
+export {zoomGraph,makeDataHirarchic, customHierarchy}
 
 
 

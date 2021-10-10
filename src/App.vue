@@ -1,7 +1,7 @@
 <template>
    <div class="container">
-      <header>Visualize nested data structures </header>
-    <user-input @transmit-data="receaveData" />
+      <header>  Visualize your nested data structure </header>
+    <user-input :parentData="graphData" @transmit-data="receaveData" />
 
       <div id="graph-container">
    
@@ -54,6 +54,7 @@ export default {
   methods: {
 
     receaveData(compTransmit){
+     
       // get the value of proxy 
       this.graphData = compTransmit
     },
@@ -67,8 +68,14 @@ export default {
 
 /* Add Inter  */
 /* https://reactgo.com/add-fonts-vue-app/ */
+
+
+* {
+    margin: 0;
+}
+
 #app {
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -97,14 +104,14 @@ export default {
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.2fr 0.6fr 2.2fr 0.2fr;
+    grid-template-rows: 0.4fr 0.6fr 2.2fr 0.3fr;
     grid-template-areas:
-      "nav nav nav nav"
+      "header header header header"
       "user-input user-input user-input user-input"
       "graph-container graph-container graph-container graph-container"
       "footer footer footer footer";
-    grid-gap: 0.5rem;
-    font-weight: 800;
+    grid-gap: 0.1rem ;
+    /* font-weight: 800; */
     /* text-transform: uppercase; */
     /* Add change font size to mange in every component */
   /* makes font size global !!!/ */
@@ -115,10 +122,25 @@ export default {
 
   /* Add header hat komischen Abstand */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&display=swap');
   header {
+    
+    margin-top: 5px;
+    /* font-family: "Inter", sans-serif; */
+    font-weight: 800;
     text-align: center;
-    background: #a7ffeb;
-    grid-area: nav;
+   font-family: 'Roboto Mono', monospace;
+    /* background: #004d40; */
+   
+ 
+    color: #004d40;
+    font-size: 1rem;
+    /* text-shadow: 1px 2px 2.5px rgba(122, 122, 128, 0.51); */
+    /* background-color: rgba(255, 255, 255, 0.5); */
+
+   
+
+    grid-area: header;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);
   }
@@ -141,7 +163,7 @@ export default {
 
   
   footer {
-    background: #1de9b6;
+    background: #916BBF;
     grid-area: footer;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);

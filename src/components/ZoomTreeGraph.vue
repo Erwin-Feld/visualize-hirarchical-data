@@ -4,9 +4,9 @@
 
 <script>
 import d3 from "@/assets/d3";
-import { makeDataHirarchic, zoomGraph } from "../assets/d3/graphFunctions";
+import { makeDataHirarchic, zoomGraph, customHierarchy } from "../assets/d3/graphFunctions";
 
-import { onMounted, ref, watch, watchEffect } from "@vue/runtime-core";
+import { onMounted, ref, watch } from "@vue/runtime-core";
 
 export default {
   name: "ZoomTreeGraph",
@@ -20,10 +20,8 @@ export default {
        // *** variables **********************
       const selectDivRef = d3.select(divRef.value);
 
-      // Add make a clone of object to prevent mutation from makeDAtaHirarch
-      // const dataClone = Object.assign({}, props.data)
-
-      const root = d3.hierarchy(props.data, makeDataHirarchic);
+      
+      const root = customHierarchy(d3,props.data,makeDataHirarchic);
      
       //  link length
       const dx = 60;
@@ -40,17 +38,9 @@ export default {
     });
 
     watch(
-        // FIXME
-          // why is data cnahged added wenn clickedo n button ?
-      // watches for data 
-      // deletes the svg with outdated data
-      // creates a new one with the current data
+       
       () => props.data,
       (changedValue, initalValue) => {
-       
-        console.log(JSON.stringify(changedValue));
-
-        //  console.log(Array.isArray(changedValue))
         d3.selectAll(".svg-graph").remove();
 
         // *** creates new one 
@@ -58,8 +48,9 @@ export default {
 
       const selectDivRef = d3.select(divRef.value);
 
-      // Add make a copy of object
-      const root = d3.hierarchy(props.data, makeDataHirarchic);
+   
+      const root = customHierarchy(d3,props.data,makeDataHirarchic);
+     
      
       //  link length
       const dx = 60;
