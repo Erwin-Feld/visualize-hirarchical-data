@@ -41,12 +41,14 @@
       <button class="render-button" type="button" @click="sendUserData">
         render
       </button>
-      <p v-if="this.emptyFlag" class="container-right__text-empty-reminder">
+
+      <!-- logic if textarea is empty and button clicked // no data inserted  -->
+      <p v-if="this.emptyTextAreaSubmit" class="container-right__text-empty-reminder">
         insert data first!
       </p>
     </div>
     <!-- if error occurs display the popUp -->
-    <pop-up v-else :errorMessage="this.inputError" @changeValue="receaveData" />
+    <pop-up v-else :errorMessage="this.inputError" @hide-popUp="popUpEmit" />
   </div>
 </template>
 
@@ -72,44 +74,51 @@ export default {
       // undefined, 4 makes it to displayed more prettier
       placeHolderData: JSON.stringify(this.parentCompData, undefined, 4),
 
-
+      // contains the parsing Error from JSON 5 default is false 
       inputError: false,
-      emptyFlag: false,
+      // flag which detects if user clicks button without inserting data into TextArea
+      emptyTextAreaSubmit: false,
     };
   },
 
   methods: {
-    // receave error message and displays it
-    receaveData(receaveValue) {
-      console.log(receaveValue);
-      // console.log(receaveValue)
-      this.inputError = receaveValue;
+
+    // emiting the value from the PopUp component
+  
+    popUpEmit(popUpEmitValue) {
+      // sets that parsing error to false /no parsing error 
+      this.inputError = popUpEmitValue;
     },
 
     sendUserData(event) {
       try {
-        // if data changed
-        // check for empty string
-        // Add check if empty
-
+      
+        // checks first if no data is added 
         if (this.userInputData) {
-          this.emptyFlag = false;
+          // this.emptyTextAreaSubmit = false;
 
           this.renderData = parse(this.userInputData);
-          // mit objecten was anderes als mit arrays !!
-          //  FIXME wieso wurde das net mehr als array erkant ?
-          // console.log(stringify(this.parentData))
-
-          // test
+      
+         
           if (stringify(this.renderData) !== stringify(this.parentData)) {
             this.$emit("render-data", this.renderData);
           }
         } else {
-          this.emptyFlag = true;
+          // else block --> tried to submit empty data
+          // which sets data value to true and displays the warning paragraph
+          this.emptyTextAreaSubmit = true;
+          // for better visibilty that data is empty sets the placeHolderData to empty
           this.placeHolderData = "";
         }
       } catch (e) {
-        // catches error and transmits it to PopUp.vue component
+        // catches the parsing error from JSON 5 and displays it in the PopUp component
+      // Add  extrtract 
+      // console.log(e.name)
+      //     console.log(e.message) 
+      // add extract name + message ++ delete JSON5 part in message 
+
+
+        console.log(JSON.stringify(e))
         this.inputError = e;
       }
     },
