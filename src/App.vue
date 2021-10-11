@@ -7,7 +7,10 @@
       <zoom-tree-graph :data="graphData" />
     </div>
     <footer>
-      <p>interested ? conntect me erwinfeld.dev@gmail.com</p>
+      <div class="footer-container">
+        <div class="footer-container__author">© 2021 Erwin Feld</div>
+        <div class="footer-container__contact">erwinfeld.dev@gmail.com</div>
+      </div>
     </footer>
   </div>
 </template>
@@ -78,7 +81,7 @@ export default {
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 0.4fr 0.6fr 2.2fr 0.3fr;
+  grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr;
   grid-template-areas:
     "header header header header"
     "user-input user-input user-input user-input"
@@ -112,8 +115,34 @@ header {
 footer {
   background: #916bbf;
   grid-area: footer;
-  border-radius: var(--main-radius);
+  border-top-left-radius: var(--main-radius);
+   border-top-right-radius: var(--main-radius);
   padding-top: var(--main-padding);
+}
+
+.footer-container {
+ display: flex;
+ flex-direction: row;
+  align-content: flex-start;
+ gap: 5%;
+ margin-left: 5%;
+ margin-right: 10%;
+ 
+}
+
+.footer-container__author {
+  font-size: 0.6rem;
+   font-weight: 500;
+    /* text-shadow: 1px 2px 2px rgba(171, 171, 177, 0.51); */
+     color: rgb(241, 237, 237);
+
+}
+
+.footer-container__contact {
+  text-decoration: underline; 
+  font-size: 0.6rem;
+   font-weight: 500;
+      color: rgb(241, 237, 237);
 }
 
 /*     
