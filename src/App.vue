@@ -45,7 +45,7 @@ export default {
 
   methods: {
     receaveData(compTransmit) {
-      // get the value of proxy
+      // get the userdata from input Component and sends it to graph to render
       this.graphData = compTransmit;
     },
   },
