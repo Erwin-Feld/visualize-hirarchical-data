@@ -111,15 +111,17 @@ export default {
           this.placeHolderData = "";
         }
       } catch (e) {
-        // catches the parsing error from JSON 5 and displays it in the PopUp component
-      // Add  extrtract 
-      // console.log(e.name)
-      //     console.log(e.message) 
-      // add extract name + message ++ delete JSON5 part in message 
+     
+                           // error message content
+      const errorMessage = e.message;
 
+            // slice JSON5 off
+      const slicedErrorMessage = errorMessage.substring(7)
 
-        console.log(JSON.stringify(e))
-        this.inputError = e;
+                              // e.name === errormessage type
+      const fullErrorMessage = e.name + " "+ slicedErrorMessage
+       
+        this.inputError = fullErrorMessage;
       }
     },
   },
@@ -218,6 +220,13 @@ textarea:focus::placeholder {
   );
 
   outline: none;
+}
+
+
+.render-button:hover {
+   font-weight: 800;
+ box-shadow: 0 5px #666;
+ background: #ede9f0;
 }
 
 .render-button:active {
