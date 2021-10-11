@@ -4,7 +4,11 @@
 
 <script>
 import d3 from "@/assets/d3";
-import { makeDataHirarchic, zoomGraph, customHierarchy } from "../assets/d3/graphFunctions";
+import {
+  makeDataHirarchic,
+  zoomGraph,
+  customHierarchy,
+} from "../assets/d3/graphFunctions";
 
 import { onMounted, ref, watch } from "@vue/runtime-core";
 
@@ -16,56 +20,45 @@ export default {
     const divRef = ref(null);
 
     onMounted(() => {
-
-       // *** variables **********************
+      // *** variables **********************
       const selectDivRef = d3.select(divRef.value);
 
-      
-      const root = customHierarchy(d3,props.data,makeDataHirarchic);
-     
+      const root = customHierarchy(d3, props.data, makeDataHirarchic);
+
       //  link length
       const dx = 60;
-      // wurde so ermittelt
-      // dy =  width / packageJson.children.length;
+
       // link height
       const dy = 80;
 
-      // selects the div parent and append the svg element to it 
+      // selects the div parent and append the svg element to it
       d3.select(selectDivRef.node()).append(function() {
         return zoomGraph(d3, root, dx, dy, divRef, props.data);
       });
-
     });
 
     watch(
-       
       () => props.data,
       (changedValue, initalValue) => {
         d3.selectAll(".svg-graph").remove();
 
-        // *** creates new one 
-       // *** variables **********************
+        // *** creates new one
+        // *** variables **********************
 
-      const selectDivRef = d3.select(divRef.value);
+        const selectDivRef = d3.select(divRef.value);
 
-   
-      const root = customHierarchy(d3,props.data,makeDataHirarchic);
-     
-     
-      //  link length
-      const dx = 60;
-      // wurde so ermittelt
-      // dy =  width / packageJson.children.length;
-      // link height
-      const dy = 80;
+        const root = customHierarchy(d3, props.data, makeDataHirarchic);
 
-      // selects the div parent and append the svg element to it 
-      d3.select(selectDivRef.node()).append(function() {
-        return zoomGraph(d3, root, dx, dy, divRef, props.data);
-      });
+        //  link length
+        const dx = 60;
 
+        // link height
+        const dy = 80;
 
-      
+        // selects the div parent and append the svg element to it
+        d3.select(selectDivRef.node()).append(function() {
+          return zoomGraph(d3, root, dx, dy, divRef, props.data);
+        });
       }
     );
 
@@ -74,39 +67,9 @@ export default {
 };
 </script>
 
-
 <style scoped>
 #ZoomTreeGraph {
   height: 100%;
   width: 100%;
-}
-
-/* .node-{
-  fill: rgb(187, 255, 0);
-
-} */
-
-/* .svg-graph {
-   width: 100%;
-   height: 100%;
-    background: rgb(165, 165, 172);
-} */
-
-.limit {
-  border-style: solid;
-  border-color: black;
-  border-width: 3px;
-}
-
-/* .node circle {
-  fill: #fff;
-  stroke: rgb(49, 56, 61);
-  stroke-width: 3px;
-} */
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
 }
 </style>
