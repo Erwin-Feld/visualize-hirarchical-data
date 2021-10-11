@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header>Visualize your nested data structure</header>
-    <user-input :parentData="graphData" @transmit-data="receaveData" />
+    <user-input :parentCompData="graphData" @render-data="receaveData" />
 
     <div id="graph-container">
       <zoom-tree-graph :data="graphData" />
@@ -16,7 +16,6 @@
 import UserInput from "./components/UserInput.vue";
 import ZoomTreeGraph from "./components/ZoomTreeGraph.vue";
 
-// Add delete 
 
 export default {
   name: "App",
