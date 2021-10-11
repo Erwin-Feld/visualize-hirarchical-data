@@ -1,79 +1,79 @@
 <template>
   <div class="user-input">
+
+    <!-- left container -->
     <div class="user-input__container-left">
       <p class="container-left__text-left">
         insert your data structure [arrays],{objects/dicts} or JSON
       </p>
       <svg viewBox="-2800 600 5200 2200" xml:space="preserve">
-        <!-- Add add style ? also color -->
-        <!-- .st0{fill:#050400;}  -->
-
         <g>
           <g>
             <path
               class="svg-arrow"
-              d="M110.25,279.65c-10.06,2.42-6.59,33.57-5.38,40.59c30.14,174.8,110,322.79,203.56,455.14
-		c98.76,139.75,217.5,257.28,343.51,358.46c135.12,108.49,281.71,194.26,437.76,249.92c75.18,26.82,152.63,44.62,230.32,58.48
-		c86.84,15.47,172.88,15.33,260.77,13.65c12.86-0.27,7.29-76.39-10.46-76.05c-75.56,1.48-149.91,2.6-224.88-7.87
-		c-80.45-11.26-160.4-30.03-238.35-55.41c-146.78-47.82-285.73-125.7-414.31-222.22c-123.58-92.81-238.92-201.76-339.54-329.41
-		c-97.68-123.9-197.24-276.25-227.17-449.83C124.88,308.05,120.62,277.15,110.25,279.65z"
+                d="M110.25,279.65c-10.06,2.42-6.59,33.57-5.38,40.59c30.14,174.8,110,322.79,203.56,455.14
+		              c98.76,139.75,217.5,257.28,343.51,358.46c135.12,108.49,281.71,194.26,437.76,249.92c75.18,26.82,152.63,44.62,230.32,58.48
+		              c86.84,15.47,172.88,15.33,260.77,13.65c12.86-0.27,7.29-76.39-10.46-76.05c-75.56,1.48-149.91,2.6-224.88-7.87
+		              c-80.45-11.26-160.4-30.03-238.35-55.41c-146.78-47.82-285.73-125.7-414.31-222.22c-123.58-92.81-238.92-201.76-339.54-329.41
+		              c-97.68-123.9-197.24-276.25-227.17-449.83C124.88,308.05,120.62,277.15,110.25,279.65z"
             />
-            <polygon
-              class="svg-arrow"
-              points="1576.77,1544.63 1569.18,1295.51 1786.35,1430.5 	"
-            />
+            <polygon class="svg-arrow" points="1576.77,1544.63 1569.18,1295.51 1786.35,1430.5 "/>
           </g>
         </g>
       </svg>
     </div>
 
-    <textarea
-      class="data-insert"
+
+    <!-- data insert area -->
+    <textarea class="user-input__data-insert" 
       cols="50"
       rows="12"
-      v-model="this.userinput"
-      :placeholder="this.placeHolder"
+      v-model="this.userInputData"
+      :placeholder="this.placeHolderData"
     />
 
+    <!-- right container -->
     <!-- change container -->
-    <div v-if="!this.errorContent" class="user-input__container-right">
+    <div v-if="!this.inputError" class="user-input__container-right">
       <p class="container-right__text-right">
         zoom, drag the graph is you like !
       </p>
-      <button class="display-button" type="button" @click="transmitData">
+      <button class="render-button" type="button" @click="sendUserData">
         render
       </button>
       <p v-if="this.emptyFlag" class="container-right__text-empty-reminder">
         insert data first!
       </p>
     </div>
-    <pop-up
-      v-else
-      :errorMessage="this.errorContent"
-      @changeValue="receaveData"
-    />
+    <!-- if error occurs display the popUp -->
+    <pop-up v-else :errorMessage="this.inputError" @changeValue="receaveData" />
   </div>
 </template>
 
 <script>
-
 import { parse, stringify } from "json5";
 import PopUp from "./PopUp.vue";
 
 export default {
   components: { PopUp },
-  props: ["parentData"],
-  emits: ["transmit-data"],
+  props: ["parentCompData"],
 
-  //  WORKS !!!
-  // FIXME
-  // modifed the data here --> there is a re load
+  // emits the userInputData to parent
+  emits: ["render-data"],
+
+
   data() {
     return {
-      userinput: "",
-      dataTransmit: "",
-      placeHolder: JSON.stringify(this.parentData, undefined, 4),
-      errorContent: "",
+      userInputData: "",  // data which the users enters in the textArea field
+      
+      renderData: "",    // the userData which is send to App component to pass to graph to render it
+      
+      // displays the initial data from App component as placeholder inside textArea
+      // undefined, 4 makes it to displayed more prettier
+      placeHolderData: JSON.stringify(this.parentCompData, undefined, 4),
+
+
+      inputError: false,
       emptyFlag: false,
     };
   },
@@ -81,35 +81,36 @@ export default {
   methods: {
     // receave error message and displays it
     receaveData(receaveValue) {
+      console.log(receaveValue);
       // console.log(receaveValue)
-      this.errorContent = receaveValue;
+      this.inputError = receaveValue;
     },
 
-    transmitData(event) {
+    sendUserData(event) {
       try {
         // if data changed
         // check for empty string
         // Add check if empty
 
-        if (this.userinput) {
+        if (this.userInputData) {
           this.emptyFlag = false;
 
-          this.dataTransmit = parse(this.userinput);
+          this.renderData = parse(this.userInputData);
           // mit objecten was anderes als mit arrays !!
           //  FIXME wieso wurde das net mehr als array erkant ?
           // console.log(stringify(this.parentData))
 
           // test
-          if (stringify(this.dataTransmit) !== stringify(this.parentData)) {
-            this.$emit("transmit-data", this.dataTransmit);
+          if (stringify(this.renderData) !== stringify(this.parentData)) {
+            this.$emit("render-data", this.renderData);
           }
         } else {
           this.emptyFlag = true;
-          this.placeHolder = "";
+          this.placeHolderData = "";
         }
       } catch (e) {
         // catches error and transmits it to PopUp.vue component
-        this.errorContent = e;
+        this.inputError = e;
       }
     },
   },
@@ -128,10 +129,10 @@ export default {
 
   grid-template-areas:
     ". . ."
-    ". data-insert ."
-    "user-input__container-left data-insert user-input__container-right"
-    "user-input__container-left data-insert user-input__container-right"
-    "user-input__container-left data-insert user-input__container-right"
+    ". user-input__data-insert ."
+    "user-input__container-left user-input__data-insert user-input__container-right"
+    "user-input__container-left user-input__data-insert user-input__container-right"
+    "user-input__container-left user-input__data-insert user-input__container-right"
     ". . .";
 
   /* component of main layout */
@@ -158,8 +159,8 @@ export default {
   fill: #004d40;
 }
 
-.data-insert {
-  grid-area: data-insert;
+.user-input__data-insert {
+  grid-area: user-input__data-insert;
   font-size: 8px;
   border-radius: 2%;
 }
@@ -183,7 +184,7 @@ textarea:focus::placeholder {
   text-shadow: 1px 2px 2.5px rgba(122, 122, 128, 0.51);
 }
 
-.display-button {
+.render-button {
   /* grid-area: component-1__button ; */
   font-size: 1.2em;
   min-width: 50px;
@@ -210,7 +211,7 @@ textarea:focus::placeholder {
   outline: none;
 }
 
-.display-button:active {
+.render-button:active {
   background: #e2b9f7;
 
   box-shadow: 3 4px #666;
@@ -219,7 +220,7 @@ textarea:focus::placeholder {
   transform: translateY(7px);
 }
 
-.display-button:active.container-right__text-empty-reminder {
+.render-button:active.container-right__text-empty-reminder {
   color: #e948f8;
 }
 
