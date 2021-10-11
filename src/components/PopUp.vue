@@ -10,7 +10,7 @@
     
     <div class="error-message__expl">numbers, strings, JSON</div>
    
-    <div class="error-message__expl-buttom" >no variables!</div>
+    <div class="error-message__expl-buttom" >no variables</div>
    
     <button class="pop-up__button" @click="hidePopUp">try again</button>
   </div>
@@ -41,7 +41,6 @@ export default {
    gap: 1px;
    min-width: 150px;
     margin-right: 5px;
-     margin-right: 5px;
   align-content: center;
 
   /* font-size: 0.6rem; */
@@ -110,12 +109,12 @@ export default {
 .pop-up__button:hover {
 
    font-size: 0.7rem;
-  margin-left: 7px;
-   margin-right: 7px;
-   margin-bottom: 4px;
+  margin-left: 5px;
+   margin-right: 5px;
+   /* margin-bottom: 4px; */
   font-weight: 700;
-    box-shadow: 0 0 1px rgba(243, 163, 239, 0.459);
-
+    box-shadow: 0 0 1px rgba(250, 248, 250, 0.459);
+    
    text-shadow: 1px 1px 2px rgba(159, 159, 207, 0.51);
      
 }
