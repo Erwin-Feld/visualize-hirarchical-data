@@ -156,6 +156,7 @@ function makeDataHirarchic(d) {
       .attr("stroke-width", 3);
 
       if (Array.isArray(transmitData)) {
+        // FIXME better display of array with empty space // possible ?
         nodeEnter
         .append("text")
         .text(function(d) {
