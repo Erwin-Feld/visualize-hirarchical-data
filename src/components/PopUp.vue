@@ -12,20 +12,22 @@
    
     <div class="error-message__expl-buttom" >no variables!</div>
    
-    <button class="pop-up__button" @click="changeData">try again</button>
+    <button class="pop-up__button" @click="hidePopUp">try again</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "PopUp",
-  props: ["errorMessage", "dissmiss"],
-  emits: ["change-value"],
+  props: ["errorMessage"],
+  emits: ["hide-popUp"],
 
   
   methods: {
-    changeData() {
-      this.$emit("change-value", false);
+    hidePopUp() {
+      // emits to hide the popUp component by set the parsing error content to false
+      // which is the default state 
+      this.$emit("hide-popUp", false);
     },
   },
 };
@@ -92,9 +94,6 @@ export default {
        color: rgb(245, 241, 241);
  }
 
-/* .error-message__json5 {
-
-} */
 
 .pop-up__button {
   /* max-width: 70px; */
@@ -121,9 +120,5 @@ export default {
      
 }
 
-.break {
-  flex-basis: 100%;
-  height: 0;
-}
 
 </style>
