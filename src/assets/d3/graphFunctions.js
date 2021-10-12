@@ -12,17 +12,11 @@ function customHierarchy(d3, parentData, makeDataHirarchic) {
 
     return d3.hierarchy(clone, makeDataHirarchic)
   } else {
-
       // create shallow copy of data to prevent mutation from
-  const clone = cloneDeep(parentData)
+      const clone = cloneDeep(parentData)
 
-  return d3.hierarchy(clone, makeDataHirarchic)
-
-
-
-  }
-
-
+      return d3.hierarchy(clone, makeDataHirarchic)
+    }
 }
 
 // takes json and js objects trnasforms them
