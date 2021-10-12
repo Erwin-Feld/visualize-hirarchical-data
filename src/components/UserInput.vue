@@ -95,11 +95,16 @@ export default {
       
         // checks first if no data is added 
         if (this.userInputData) {
-          // this.emptyTextAreaSubmit = false;
 
+          // if previos data was empty and submited text was shown
+          // sets variable to false to hide the reminder text 
+          this.emptyTextAreaSubmit = false;
+
+          // parse the inserted string to an Object 
           this.renderData = parse(this.userInputData);
       
-         
+          //  checks if current renderData is not equal with previos data
+          // to prevent sending same data 
           if (stringify(this.renderData) !== stringify(this.parentData)) {
             this.$emit("render-data", this.renderData);
           }
@@ -129,6 +134,7 @@ export default {
 </script>
 
 <style scoped>
+
 .user-input {
   background: #6fffd2;
 
@@ -152,6 +158,8 @@ export default {
   padding-top: var(--main-padding);
 }
 
+/* user input children */
+/* left container */
 .user-input__container-left {
   grid-area: user-input__container-left;
 
@@ -176,12 +184,11 @@ export default {
   border-radius: 2%;
 }
 
+/* remove placeholder if focused */
 textarea:focus::placeholder {
   color: transparent;
 }
 
-/* Add change placeholder color font */
-/* FIXME   css class gets not changed  */
 
 .user-input__container-right {
   grid-area: user-input__container-right;
@@ -197,7 +204,7 @@ textarea:focus::placeholder {
 
 .render-button {
   /* grid-area: component-1__button ; */
-  font-size: 1.2em;
+ 
   min-width: 50px;
   min-height: 30px;
   max-width: 20%;
@@ -205,10 +212,9 @@ textarea:focus::placeholder {
   max-height: 50%;
   border-radius: 20%;
   box-shadow: 0 4px #a8a8a8;
-  /* border-radius: 7%; */
-  /* width: 7%;
-    height: 5%; */
+
   font-family: "Inter", sans-serif;
+   font-size: 1.2em;
   text-shadow: 1px 2px 2.5px rgba(122, 122, 128, 0.51);
   font-weight: 600;
   background-image: linear-gradient(
@@ -219,7 +225,6 @@ textarea:focus::placeholder {
     rgba(255, 255, 255, 0) 100%
   );
 
-  outline: none;
 }
 
 
@@ -238,12 +243,12 @@ textarea:focus::placeholder {
   transform: translateY(7px);
 }
 
-.render-button:active.container-right__text-empty-reminder {
-  color: #e948f8;
-}
+
 
 .container-right__text-empty-reminder {
   color: #f8485e;
   font-weight: 1000;
 }
+
+
 </style>
