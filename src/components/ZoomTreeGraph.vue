@@ -24,7 +24,6 @@ export default {
       const selectDivRef = d3.select(divRef.value);
 
       const root = customHierarchy(d3, props.data, makeDataHirarchic);
-
       //  link length
       const dx = 60;
 
@@ -33,7 +32,7 @@ export default {
 
       // selects the div parent and append the svg element to it
       d3.select(selectDivRef.node()).append(function() {
-        return zoomGraph(d3, root, dx, dy, divRef, props.data);
+        return zoomGraph(d3, root, dx, dy, divRef);
       });
     });
 
@@ -57,7 +56,7 @@ export default {
 
         // selects the div parent and append the svg element to it
         d3.select(selectDivRef.node()).append(function() {
-          return zoomGraph(d3, root, dx, dy, divRef, props.data);
+          return zoomGraph(d3, root, dx, dy, divRef);
         });
       }
     );
