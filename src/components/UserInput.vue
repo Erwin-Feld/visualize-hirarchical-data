@@ -100,13 +100,17 @@ export default {
           // sets variable to false to hide the reminder text
           this.emptyTextAreaSubmit = false;
 
-          // parse the inserted string to an Object 
-          this.renderData = parse(this.userInputData);
+        
+     
       
           //  checks if current renderData is not equal with previos data
           // to prevent sending same data 
-          if (stringify(this.renderData) !== stringify(this.parentData)) {
-            this.$emit("render-data", this.renderData);
+          if (stringify(this.renderData) !== stringify(this.parentCompData)) {
+
+                // parse the inserted string to an Object 
+              this.renderData = parse(this.userInputData);
+
+              this.$emit("render-data", this.renderData);
           }
         } else {
           // else block --> tried to submit empty data
