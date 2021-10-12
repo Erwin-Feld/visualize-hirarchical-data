@@ -97,7 +97,7 @@ export default {
         if (this.userInputData) {
 
           // if previos data was empty and submited text was shown
-          // sets variable to false to hide the reminder text 
+          // sets variable to false to hide the reminder text
           this.emptyTextAreaSubmit = false;
 
           // parse the inserted string to an Object 
