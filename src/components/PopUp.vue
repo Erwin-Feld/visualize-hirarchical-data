@@ -8,7 +8,7 @@
 
     <div class="error-message__expl">objects/dicts -> {prop: "value"}</div>
 
-    <div class="error-message__expl">numbers, strings, JSON</div>
+    <div class="error-message__expl">JSON -> {"prop": "value"}</div>
 
     <div class="error-message__expl-buttom">no variables</div>
 
