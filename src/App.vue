@@ -30,16 +30,15 @@ export default {
   data() {
     return {
       graphData: {
-        prop: "dead branch",
-        branch: [
-          { prop: "leaf" },
+        cereal: "no",
+        bread: [
+          { toast: "nah" },
           {
-            name: "child #2",
-            children: [
-              { name: "grandchild #1" },
-              { name: "grandchild #2" },
-              { name: "grandchild #3" },
+            
+            sandwich: [
+             "bacon", "pepperoni ", "cheese"
             ],
+            cornbread: "nope",
           },
         ],
       },
