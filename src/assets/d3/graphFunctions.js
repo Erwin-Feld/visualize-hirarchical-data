@@ -4,11 +4,19 @@ import {cloneDeep} from 'lodash'
 // use if function is to create clone of data 
 function customHierarchy(d3, parentData, makeDataHirarchic) {
 
-  // create shallow copy of data to prevent mutation from
-  const clone = cloneDeep(parentData)
+  if(Array.isArray(parentData)){
+    // packs Array inside Object 
+    // to not display a huge array /to cut it off
+    const packInsideObject = {array: parentData}
+    const clone = cloneDeep(packInsideObject)
 
-  return d3.hierarchy(clone, makeDataHirarchic)
+    return d3.hierarchy(clone, makeDataHirarchic)
+  } else {
+      // create shallow copy of data to prevent mutation from
+      const clone = cloneDeep(parentData)
 
+      return d3.hierarchy(clone, makeDataHirarchic)
+    }
 }
 
 // takes json and js objects trnasforms them
@@ -27,7 +35,7 @@ function makeDataHirarchic(d) {
       });
 }
 
- function zoomGraph(d3, root, dx, dy, divRef, transmitData) {
+ function zoomGraph(d3, root, dx, dy, divRef) {
     // d3 --> library
     //  root --> data transformed hirarchically
     // dx --> starting x coordinates
@@ -58,6 +66,7 @@ function makeDataHirarchic(d) {
   const svg = d3
     .create("svg")
     .attr("preserveAspectRatio", "xMinYMin meet")
+    // spans the svg over whole avaible space
     .attr("width", "100%")
     .attr("height", "100%")
     .classed("svg-graph", true)
@@ -85,13 +94,12 @@ function makeDataHirarchic(d) {
 
   const zoomBehaviours = d3
     .zoom()
-    .scaleExtent([0.05, 3])
+    .scaleExtent([0.05, 3]) //zoom scale
 
     .on("zoom", (event, d) => {
       //  https://observablehq.com/@d3/d3v6-migration-guide
       // ****changed to version 7****
       g.attr("transform", event.transform);
-      //   console.log(d3.event.transform);
     });
 
   svg.call(zoomBehaviours);
@@ -142,7 +150,6 @@ function makeDataHirarchic(d) {
           setTimeout(() => {
             zoomToFit();
           }, duration + 100);
-          //zoomToFit();
         }
       });
 
@@ -155,20 +162,6 @@ function makeDataHirarchic(d) {
       .attr("stroke", (d) => (d._children ? "#F8485E" : "#999"))
       .attr("stroke-width", 3);
 
-      if (Array.isArray(transmitData)) {
-        nodeEnter
-        .append("text")
-        .text(function(d) {
-          return d.data.$name || d.data;
-        })
-        .attr("y", -10)
-        .attr("x", -10)
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-width", 3)
-         //adds root text on start if data is array  
-         .attr("text-anchor", d => d.data ? "end" : "start")
-
-      } else {
 
         nodeEnter
         .append("text")
@@ -181,21 +174,9 @@ function makeDataHirarchic(d) {
         .attr("stroke-width", 3)
         .attr("text-anchor", "middle");
 
-      }
+   
 
-    // nodeEnter
-    //   .append("text")
-    //   .text(function(d) {
-    //     return d.data.$name || d.data;
-    //   })
-    //   .attr("y", -10)
-    //   .attr("x", -10)
-    //   .attr("stroke-linejoin", "round")
-    //   .attr("stroke-width", 3)
-    //  
-    //    .attr("text-anchor", d => d.data ? "end" : "start")
-    //   // .attr("text-anchor", "middle");
-
+   
     const nodeUpdate = node
       .merge(nodeEnter)
       .transition(transition)

@@ -1,13 +1,16 @@
 <template>
   <div class="container">
     <header>Visualize your nested data structure</header>
-    <user-input :parentData="graphData" @transmit-data="receaveData" />
+    <user-input :parentCompData="graphData" @render-data="receaveData" />
 
     <div id="graph-container">
       <zoom-tree-graph :data="graphData" />
     </div>
     <footer>
-      <p>interested ? conntect me erwinfeld.dev@gmail.com</p>
+      <div class="footer-container">
+        <div class="footer-container__author">© 2021 Erwin Feld</div>
+        <div class="footer-container__contact">erwinfeld.dev@gmail.com</div>
+      </div>
     </footer>
   </div>
 </template>
@@ -16,7 +19,6 @@
 import UserInput from "./components/UserInput.vue";
 import ZoomTreeGraph from "./components/ZoomTreeGraph.vue";
 
-// Add delete 
 
 export default {
   name: "App",
@@ -28,16 +30,15 @@ export default {
   data() {
     return {
       graphData: {
-        prop: "dead branch",
-        branch: [
-          { prop: "leaf" },
+        cereal: "no",
+        bread: [
+          { toast: "nah" },
           {
-            name: "child #2",
-            children: [
-              { name: "grandchild #1" },
-              { name: "grandchild #2" },
-              { name: "grandchild #3" },
+            
+            sandwich: [
+             "bacon", "pepperoni ", "cheese"
             ],
+            cornbread: "nope",
           },
         ],
       },
@@ -46,7 +47,7 @@ export default {
 
   methods: {
     receaveData(compTransmit) {
-      // get the value of proxy
+      // get the userdata from input Component and sends it to graph to render
       this.graphData = compTransmit;
     },
   },
@@ -79,7 +80,7 @@ export default {
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 0.4fr 0.6fr 2.2fr 0.3fr;
+  grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr;
   grid-template-areas:
     "header header header header"
     "user-input user-input user-input user-input"
@@ -113,8 +114,34 @@ header {
 footer {
   background: #916bbf;
   grid-area: footer;
-  border-radius: var(--main-radius);
+  border-top-left-radius: var(--main-radius);
+   border-top-right-radius: var(--main-radius);
   padding-top: var(--main-padding);
+}
+
+.footer-container {
+ display: flex;
+ flex-direction: row;
+  align-content: flex-start;
+ gap: 5%;
+ margin-left: 5%;
+ margin-right: 10%;
+ 
+}
+
+.footer-container__author {
+  font-size: 0.6rem;
+   font-weight: 500;
+    /* text-shadow: 1px 2px 2px rgba(171, 171, 177, 0.51); */
+     color: rgb(241, 237, 237);
+
+}
+
+.footer-container__contact {
+  text-decoration: underline; 
+  font-size: 0.6rem;
+   font-weight: 500;
+      color: rgb(241, 237, 237);
 }
 
 /*     

@@ -26,3 +26,18 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### lets get started !
+
+
+
+##### not fixed
+ strings and numbers can only be updates on same row
+else only last row gets the new value 
+
+delete svg and create new one with same data
+detection on edditing same data is not working
+still displays it as same data 
+
+button click user sees something changes which is also exeptable 
+
+
+
