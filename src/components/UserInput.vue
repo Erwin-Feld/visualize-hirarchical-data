@@ -36,18 +36,22 @@
     <!-- change container -->
     <div v-if="!this.inputError" class="user-input__container-right">
       <p class="container-right__text-right">
-        zoom, drag the graph is you like !
+        zoom, drag the graph is you like 
       </p>
       <button class="render-button" type="button" @click="sendUserData">
         render
       </button>
 
       <!-- logic if textarea is empty and button clicked // no data inserted  -->
-      <p v-if="this.emptyTextAreaSubmit" class="container-right__text-empty-reminder">
+      <p v-if="this.emptyTextAreaSubmit" class="container-right__text-reminder">
         insert data first!
       </p>
+    <!-- if unsuorted Format display paragraph with reminder -->
+      <p v-if="this.unsuportedFormat" class="container-right__text-reminder">
+        unsuported data format
+      </p>
     </div>
-    <!-- if error occurs display the popUp -->
+    <!-- if syntax error on parsing occurs display the popUp -->
     <pop-up v-else :errorMessage="this.inputError" @hide-popUp="popUpEmit" />
   </div>
 </template>
@@ -78,39 +82,50 @@ export default {
       inputError: false,
       // flag which detects if user clicks button without inserting data into TextArea
       emptyTextAreaSubmit: false,
+       // flag which detects wrong inserted data format
+      unsuportedFormat: false,
     };
   },
 
   methods: {
 
-    // emiting the value from the PopUp component
-  
+  // receaves that popUp is clicked to hide from user 
     popUpEmit(popUpEmitValue) {
       // sets that parsing error to false /no parsing error 
+      // popUp hides 
       this.inputError = popUpEmitValue;
     },
 
+
+    // send input from User data to app-->graph
     sendUserData(event) {
       try {
+
+        // resets unsuported format flag // because user clicks 
+        if(this.unsuportedFormat){
+          this.unsuportedFormat = false;
+        }
       
-        // checks first if no data is added 
+        // checks if inputfield is empty or not 
         if (this.userInputData) {
 
-          // if previos data was empty and submited text was shown
-          // sets variable to false to hide the reminder text
+          // resets emptyTextArea flag
           this.emptyTextAreaSubmit = false;
 
-        
-     
-      
-          //  checks if current renderData is not equal with previos data
-          // to prevent sending same data 
-          if (stringify(this.renderData) !== stringify(this.parentCompData)) {
+        // parses input Data from string to Object and inserts to sending Data variable
+         this.renderData = parse(this.userInputData);
 
-                // parse the inserted string to an Object 
-              this.renderData = parse(this.userInputData);
-
+          // checks if data is only a object to prevent updating parsing errors
+          // strings and numbers can only be updates on same row 
+          if (typeof this.renderData === "object") {
+           
+               
+              //  emits data to app.vue-->displays in --> zoomGraph
               this.$emit("render-data", this.renderData);
+          } else {
+
+              //  if unsuorted Format display paragraph with reminder
+              this.unsuportedFormat = true;
           }
         } else {
           // else block --> tried to submit empty data
@@ -249,7 +264,7 @@ textarea:focus::placeholder {
 
 
 
-.container-right__text-empty-reminder {
+.container-right__text-reminder {
   color: #f8485e;
   font-weight: 1000;
 }
