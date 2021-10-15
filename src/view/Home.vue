@@ -8,6 +8,7 @@
     </div>
     <footer>
       <div class="footer-container">
+        <router-link to="/policy">policy</router-link>
         <div class="footer-container__author">© 2021 Erwin Feld</div>
         <div class="footer-container__contact">erwinfeld.dev@gmail.com</div>
       </div>
@@ -16,8 +17,8 @@
 </template>
 
 <script>
-import UserInput from "./UserInput.vue";
-import ZoomTreeGraph from "./ZoomTreeGraph.vue";
+import UserInput from "../components/UserInput.vue";
+import ZoomTreeGraph from "../components/ZoomTreeGraph.vue";
 
 
 export default {
