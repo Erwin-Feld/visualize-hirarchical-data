@@ -8,16 +8,18 @@
     </div>
     <footer>
       <div class="footer-container">
+          <router-link to="/switch">switch</router-link> |
         <div class="footer-container__author">© 2021 Erwin Feld</div>
         <div class="footer-container__contact">erwinfeld.dev@gmail.com</div>
       </div>
     </footer>
   </div>
+    <router-view/>
 </template>
 
 <script>
-import UserInput from "./UserInput.vue";
-import ZoomTreeGraph from "./ZoomTreeGraph.vue";
+import UserInput from "../components/UserInput.vue";
+import ZoomTreeGraph from "../components/ZoomTreeGraph.vue";
 
 
 export default {

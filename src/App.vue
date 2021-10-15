@@ -1,9 +1,10 @@
 <template>
-  <home/>
+<!-- router view  displays dynamically which rout is anvisiert-->
+  <router-view/>
 </template>
 
 <script>
-import Home from "./components/Home.vue";
+import Home from "./views/Home.vue";
 
 
 export default {
