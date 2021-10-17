@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="main-container">
     <header>Visualize your nested data structure</header>
     <user-input :parentCompData="graphData" @render-data="receaveData" />
 
-    <div id="graph-container">
+    <div class="cookie-slider__tree-graph-container">
       <zoom-tree-graph :data="graphData" />
     </div>
     <footer>
@@ -69,20 +69,21 @@ export default {
   padding-right: 5%;
 }
 
-.container {
+.main-container {
   height: 100vh;
 
   margin-left: auto;
   margin-right: auto;
-
+  /* Lab  */
+  /* dont need columns ! in main 1 column with rows which separete everything */
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr;
   grid-template-areas:
-    "header header header header"
-    "user-input user-input user-input user-input"
-    "graph-container graph-container graph-container graph-container"
-    "footer footer footer footer";
+    "header"
+    "user-input"
+    "cookie-slider__tree-graph-container"
+    "footer";
      text-align: center;
   grid-gap: 0.1rem;
   color: #004d40;
@@ -102,8 +103,9 @@ header {
   padding-top: var(--main-padding);
 }
 
-#graph-container {
-  grid-area: graph-container;
+/* Add den wieder instand setzen beide components rein */
+.cookie-slider__tree-graph-container {
+  grid-area: cookie-slider__tree-graph-container;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
 }
