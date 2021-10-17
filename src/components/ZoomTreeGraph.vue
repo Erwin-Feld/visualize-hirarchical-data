@@ -1,5 +1,5 @@
 <template>
-  <div id="ZoomTreeGraph" ref="divRef"></div>
+  <div class="zoom-tree-graph" ref="divRef"></div>
 </template>
 
 <script>
@@ -67,8 +67,11 @@ export default {
 </script>
 
 <style scoped>
-#ZoomTreeGraph {
+
+.zoom-tree-graph {
   height: 100%;
   width: 100%;
+
 }
+
 </style>
