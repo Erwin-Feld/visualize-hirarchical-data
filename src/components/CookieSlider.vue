@@ -1,42 +1,64 @@
 <template>
-    <div class="cookie-slider">
-         <div class="cookie-component">
-          We use <router-link to="/policy">policy</router-link> 🍪
-          <button>agree</button>
-          </div>
-    
+  <div class="cookie-slider">
+    <div class="consent-container">
+      <p>This website uses cookies. For more information read our</p>
+      <router-link to="/policy"> 🍪 policy</router-link>
+      <button class="consent-button" type="button">Got it!</button>
     </div>
+  </div>
 </template>
-
 
 <style scoped>
 
 .cookie-slider {
-   /* grid-area: zoom-tree-graph__cookie-slider-container; */
-   /* display: flex;
-    align-items: center; */
 
-     
-    display: grid; 
-  /* grid-template-columns: 0.1fr 0.8fr 1fr; */
-  grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr;
-   /* grid-template-areas: ". . cookie-component";
-  height: 60%; */
-  width: 100%;
-  /* z-index: -1;  */
+  /* visibility animation after 6 seconds */
+  animation: showBlock 0s 6s forwards;
+  visibility: hidden;
 
-  /* if accepted use display none !!! */
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+
+  /* Add display none if cookie accepted  */
   /* display: none; */
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.5rem;
+  font-weight: 500;
 
 }
 
-
-.cookie-component {
-  grid-area: cookie-component;
-  /* border-radius: var(--main-radius);
-  padding-top: var(--main-padding); */
-    background: linear-gradient(74deg, rgba(229,229,229,1) 43%, rgba(255,165,0,1) 54%);
-    /* z-index: 20; */
+/* visibility function */
+@keyframes showBlock {
+  to {
+    visibility: visible;
+  }
 }
 
+.consent-container {
+ 
+  width: 100%;
+  background: linear-gradient(
+    74deg,
+    rgba(250, 248, 248, 1) 24%,
+    rgba(241, 241, 241, 1) 35%,
+    rgba(250, 248, 248, 1) 65%,
+    rgba(255, 255, 255, 1) 78%
+  );
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.consent-button {
+  border-color: #e2d3f5;
+  border-radius: 11%;
+
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.5rem;
+}
+
+.consent-button:hover {
+  font-weight: 600;
+}
 </style>
