@@ -12,7 +12,7 @@
 
     <div class="error-message__expl-buttom">no variables</div>
 
-    <button class="pop-up__button" @click="hidePopUp">try again</button>
+    <button type="button" class="pop-up__button" @click="hidePopUp">try again</button>
   </div>
 </template>
 
