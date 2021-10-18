@@ -5,12 +5,17 @@
 
     <div class="cookie-slider__tree-graph-container">
       <zoom-tree-graph :data="graphData" />
+
+      <cookie-slider />
     </div>
     <footer>
       <div class="footer-container">
-        <router-link to="/policy">policy</router-link>
-        <div class="footer-container__author">© 2021 Erwin Feld</div>
+        <div class="footer-container__policy">
+          <router-link to="/policy">policy</router-link>
+        </div>
+
         <div class="footer-container__contact">erwinfeld.dev@gmail.com</div>
+        <div class="footer-container__author">© 2021 Erwin Feld</div>
       </div>
     </footer>
   </div>
@@ -19,13 +24,14 @@
 <script>
 import UserInput from "../components/UserInput.vue";
 import ZoomTreeGraph from "../components/ZoomTreeGraph.vue";
-
+import CookieSlider from "../components/CookieSlider.vue";
 
 export default {
   name: "Home",
   components: {
     UserInput,
     ZoomTreeGraph,
+    CookieSlider,
   },
 
   data() {
@@ -35,10 +41,7 @@ export default {
         bread: [
           { toast: "nah" },
           {
-            
-            sandwich: [
-             "bacon", "pepperoni ", "cheese"
-            ],
+            sandwich: ["bacon", "pepperoni ", "cheese"],
             cornbread: "nope",
           },
         ],
@@ -60,8 +63,6 @@ export default {
   margin: 0;
 }
 
-
-
 :root {
   --main-radius: 5px;
   --main-padding: 5px;
@@ -74,9 +75,9 @@ export default {
 
   margin-left: auto;
   margin-right: auto;
-  /* Lab  */
-  /* dont need columns ! in main 1 column with rows which separete everything */
+
   display: grid;
+  min-width: 200px;
   grid-template-columns: 1fr;
   grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr;
   grid-template-areas:
@@ -84,11 +85,10 @@ export default {
     "user-input"
     "cookie-slider__tree-graph-container"
     "footer";
-     text-align: center;
+  text-align: center;
   grid-gap: 0.1rem;
   color: #004d40;
 }
-
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&display=swap");
 header {
@@ -103,9 +103,12 @@ header {
   padding-top: var(--main-padding);
 }
 
-/* Add den wieder instand setzen beide components rein */
 .cookie-slider__tree-graph-container {
   grid-area: cookie-slider__tree-graph-container;
+
+  display: flex;
+  flex-direction: column;
+
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
 }
@@ -114,35 +117,46 @@ footer {
   background: #916bbf;
   grid-area: footer;
   border-top-left-radius: var(--main-radius);
-   border-top-right-radius: var(--main-radius);
+  border-top-right-radius: var(--main-radius);
   padding-top: var(--main-padding);
 }
 
 .footer-container {
- display: flex;
- flex-direction: row;
+  display: flex;
+  flex-direction: row;
   align-content: flex-start;
- gap: 5%;
- margin-left: 5%;
- margin-right: 10%;
- 
+
+  gap: 5%;
+  margin-left: 5%;
+  margin-right: 10%;
 }
 
 .footer-container__author {
   font-size: 0.6rem;
-   font-weight: 500;
-    /* text-shadow: 1px 2px 2px rgba(171, 171, 177, 0.51); */
-     color: rgb(241, 237, 237);
-
+  font-weight: 500;
+  color: #ffffff;
 }
 
 .footer-container__contact {
-  text-decoration: underline; 
   font-size: 0.6rem;
-   font-weight: 500;
-      color: rgb(241, 237, 237);
+  font-weight: 500;
+  color: #ffffff;
 }
 
+.footer-container__policy {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.footer-container__policy a {
+  color: #ffffff;
+}
+
+.footer-container__policy a:hover {
+  color: #f9f9f9;
+  text-shadow: 1px 2px 2.5px rgba(0, 0, 7, 0.904);
+}
 /*     
   @media only screen and (max-width: 550px) {
     .container {
