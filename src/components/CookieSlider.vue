@@ -1,41 +1,40 @@
 <template>
-  <div class="cookie-slider-true" :class="{cookiefalse :allowCookies}">
+  <div class="cookie-slider-on" :class="{slideroff :cookieFilling}">
     <div class="consent-container">
       <p>This website uses cookies. For more information read our</p>
       <router-link to="/policy"> 🍪 policy</router-link>
       <button 
         class="consent-button" 
         type="button"
-        @click="okBannerClicked"
+        @click="cookieAccepted"
        >Got it!</button>
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent,inject, ref } from 'vue';
-import mediumCookies from '../assets/cookieManager/useCookies';
+import { defineComponent,inject } from 'vue';
+import cookieFunctionality from '../assets/cookieManager/cookieLogic';
 
-
-const currentState = ref(false);
 
 
 export default defineComponent ({
   name: 'CookieSlider',
   setup() {
+    // inject the gtag value from main.js --> inserts the google analytics cookie id
     const gtag = inject('gtag');
 
-    // Add brauch ich das ? 
-    const { showBanner, okClicked, allowCookies } = mediumCookies(gtag);
-    // geht net ganz
-    const okBannerClicked = () => okClicked();
+    const { deployCookie, cookieFilling } = cookieFunctionality(gtag);
+    
+
+    // user accepts cookie -> invokes the cookie function to set it to true 
+    const cookieAccepted = () => deployCookie();
 
 
     return {
-      showBanner,
-      okBannerClicked,
-      allowCookies,   // need to return it to work it !!
-      currentState
+      cookieAccepted,
+      cookieFilling,  
+     
     };
   },
 });
@@ -43,18 +42,15 @@ export default defineComponent ({
 
 <style scoped>
 
-.cookie-slider-true {
+.cookie-slider-on {
 
-  /* visibility animation after 6 seconds */
-  animation: showBlock 0s 1s forwards;
+  /* visibility animation after 4 seconds */
+  animation: showBlock 0s 4s forwards;
   visibility: hidden;
 
   display: flex;
   flex-direction: column;
   height: 30%;
-
-  /* Add display none if cookie accepted  */
-  /* display: none; */
   font-family: "Roboto Mono", monospace;
   font-size: 0.5rem;
   font-weight: 500;
@@ -95,8 +91,8 @@ export default defineComponent ({
   font-weight: 600;
 }
 
-
-.cookiefalse {
+/* if cookie accepted dont display the element */
+.slideroff {
   display: none;
 }
 
