@@ -1,5 +1,5 @@
 # visualize-hirarchical-data
-### website name VisuallyData.com
+
 #### displayjson.com
 
 ## Project setup
@@ -23,7 +23,7 @@ npm run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
 
 ### lets get started !
 
