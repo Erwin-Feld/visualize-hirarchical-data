@@ -8,8 +8,8 @@
       <svg viewBox="-2800 600 5200 2200" xml:space="preserve">
         <g>
           <g>
-          <path
-            class="svg-arrow"
+            <path
+              class="svg-arrow"
               d="M110.25,279.65c-10.06,2.42-6.59,33.57-5.38,40.59c30.14,174.8,110,322.79,203.56,455.14
 		          c98.76,139.75,217.5,257.28,343.51,358.46c135.12,108.49,281.71,194.26,437.76,249.92c75.18,26.82,152.63,44.62,230.32,58.48
 		          c86.84,15.47,172.88,15.33,260.77,13.65c12.86-0.27,7.29-76.39-10.46-76.05c-75.56,1.48-149.91,2.6-224.88-7.87
@@ -255,73 +255,29 @@ textarea:focus::placeholder {
   font-weight: 1000;
 }
 
-
 /* Tablet */
-/* Add passt oder */
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 768px) {
+  .user-input__container-left {
+    font-size: 0.8rem;
+  }
 
-.user-input__container-left {
-  grid-area: user-input__container-left;
+  .user-input__data-insert {
+    font-size: 0.7rem;
+    border-radius: 2%;
+  }
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 3px;
+  .user-input__container-right {
+    font-size: 0.8rem;
+  }
 
-  font-family: "Roboto Mono", monospace;
-  font-weight: 500;
-  font-size: 0.8rem;
-  text-shadow: 1px 2px 2px rgba(122, 122, 128, 0.51);
+  .render-button {
+    min-width: 70px;
+    min-height: 35px;
+
+    max-height: 50%;
+    border-radius: 20%;
+
+    font-size: 1.1em;
+  }
 }
-
-.user-input__data-insert {
-  grid-area: user-input__data-insert;
-  font-size: 0.7rem;
-  border-radius: 2%;
-}
-
-
-.user-input__container-right {
-  grid-area: user-input__container-right;
-  margin-right: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  font-family: "Roboto Mono", monospace;
-  font-size: 0.8rem;
-  align-items: center;
-  text-shadow: 1px 2px 2.5px rgba(122, 122, 128, 0.51);
-}
-
-
-.render-button {
-  /* grid-area: component-1__button ; */
-
-  min-width: 70px;
-  min-height: 35px;
-  /* max-width: 20%; */
-
-  max-height: 50%;
-  border-radius: 20%;
-  box-shadow: 0 4px #a8a8a8;
-
-  font-family: "Inter", sans-serif;
-  font-size: 1.1em;
-  text-shadow: 1px 2px 2.5px rgba(122, 122, 128, 0.51);
-  font-weight: 500;
-  background-image: linear-gradient(
-    -270deg,
-    rgba(255, 255, 255, 0) 0%,
-    #ffffff 20%,
-    #ffffff 80%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-
-
-}
-  
-
-
 </style>

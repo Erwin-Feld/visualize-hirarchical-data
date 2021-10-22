@@ -165,7 +165,6 @@ footer {
 
 
 /* Tablet */
-/* Add passt oder */
 @media only screen and (max-width: 768px){
 
   .main-container {

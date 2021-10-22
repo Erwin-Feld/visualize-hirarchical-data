@@ -96,7 +96,7 @@ export default defineComponent ({
   display: none;
 }
 
-
+/* Tablet */
 @media only screen and (max-width: 768px){
 
 .consent-container {
