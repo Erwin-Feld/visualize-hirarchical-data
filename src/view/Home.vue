@@ -1,6 +1,8 @@
 <template>
   <div class="main-container">
-    <header>Visualize your nested data structure</header>
+    <header>
+      <h1>Visualize your nested data structure</h1>
+      </header>
     <user-input :parentCompData="graphData" @render-data="receaveData" />
 
     <div class="cookie-slider__tree-graph-container">
@@ -64,10 +66,13 @@ export default {
 }
 
 :root {
-  --main-radius: 5px;
-  --main-padding: 5px;
-  padding-left: 5%;
-  padding-right: 5%;
+  /* Add change change main radius */
+  /* das obere macht alles rund und grenzen */
+   --main-radius: 5px; 
+   --main-padding: 5px; 
+   padding-top: 2%;
+  padding-left: 7%;
+  padding-right: 7%;
 }
 
 .main-container {
@@ -92,7 +97,7 @@ export default {
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&display=swap");
 header {
-  margin-top: 5px;
+  margin-top: 1.5rem;
   font-weight: 800;
   text-align: center;
   font-family: "Roboto Mono", monospace;
@@ -132,19 +137,19 @@ footer {
 }
 
 .footer-container__author {
-  font-size: 0.6rem;
+  /* font-size: 0.6rem; */
   font-weight: 500;
   color: #ffffff;
 }
 
 .footer-container__contact {
-  font-size: 0.6rem;
+  /* font-size: 0.6rem; */
   font-weight: 500;
   color: #ffffff;
 }
 
 .footer-container__policy {
-  font-size: 0.6rem;
+  /* font-size: 0.6rem; */
   font-weight: 500;
   color: #ffffff;
 }
@@ -157,16 +162,23 @@ footer {
   color: #f9f9f9;
   text-shadow: 1px 2px 2.5px rgba(0, 0, 7, 0.904);
 }
-/*     
-  @media only screen and (max-width: 550px) {
-    .container {
-      grid-template-columns: 1fr;
-      grid-template-rows:0.2fr 1.2fr 1.8fr 0.3fr;
-      grid-template-areas:
-        "nav"
-        "userInput"
-        "treeGraph"
-        "footer";
-    }
-  } */
+
+
+/* Tablet */
+/* Add passt oder */
+@media only screen and (max-width: 768px){
+
+  .main-container {
+     grid-template-rows: 0.3fr 0.8fr 2fr 0.2fr;
+
+  }
+
+  h1 {font-size: 1.5em;}
+
+
+}
+  
+
+  
+
 </style>
