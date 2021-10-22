@@ -154,7 +154,6 @@ export default {
   grid-template-rows: 0.3fr 0.4fr 1fr 1fr 1fr 0.3fr;
 
   grid-gap: 0.5rem;
-
   grid-template-areas:
     ". . ."
     ". user-input__data-insert ."
@@ -255,4 +254,74 @@ textarea:focus::placeholder {
   color: #f8485e;
   font-weight: 1000;
 }
+
+
+/* Tablet */
+/* Add passt oder */
+@media only screen and (max-width: 768px){
+
+.user-input__container-left {
+  grid-area: user-input__container-left;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 3px;
+
+  font-family: "Roboto Mono", monospace;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-shadow: 1px 2px 2px rgba(122, 122, 128, 0.51);
+}
+
+.user-input__data-insert {
+  grid-area: user-input__data-insert;
+  font-size: 0.7rem;
+  border-radius: 2%;
+}
+
+
+.user-input__container-right {
+  grid-area: user-input__container-right;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.8rem;
+  align-items: center;
+  text-shadow: 1px 2px 2.5px rgba(122, 122, 128, 0.51);
+}
+
+
+.render-button {
+  /* grid-area: component-1__button ; */
+
+  min-width: 70px;
+  min-height: 35px;
+  /* max-width: 20%; */
+
+  max-height: 50%;
+  border-radius: 20%;
+  box-shadow: 0 4px #a8a8a8;
+
+  font-family: "Inter", sans-serif;
+  font-size: 1.1em;
+  text-shadow: 1px 2px 2.5px rgba(122, 122, 128, 0.51);
+  font-weight: 500;
+  background-image: linear-gradient(
+    -270deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 20%,
+    #ffffff 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+
+
+}
+  
+
+
 </style>

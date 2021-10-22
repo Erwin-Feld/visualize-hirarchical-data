@@ -12,7 +12,7 @@
 
     <div class="error-message__expl-buttom">no variables</div>
 
-    <button type="button" class="pop-up__button" @click="hidePopUp">try again</button>
+    <button type="button" class="pop-up__button" @click="hidePopUp">delete and try again</button>
   </div>
 </template>
 
@@ -98,5 +98,44 @@ export default {
   box-shadow: 0 0 1px rgba(250, 248, 250, 0.459);
 
   text-shadow: 1px 1px 2px rgba(159, 159, 207, 0.51);
+}
+
+
+
+/* Tablet */
+/* Add passt oder */
+@media only screen and (max-width: 768px){
+.error-message__json5 {
+  margin-top: 3px;
+  margin-left: 2px;
+  margin-right: 2px;
+  color: red;
+
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.error-message__expl {
+  margin-top: 1px;
+  margin-left: 2px;
+  margin-right: 2px;
+
+  font-size: 0.6rem;
+  font-weight: 500;
+  font-family: "Roboto Mono", monospace;
+  color: rgb(241, 237, 237);
+}
+
+.error-message__expl-buttom {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  font-size: 0.8rem;
+  font-family: "Roboto Mono", monospace;
+  font-weight: 500;
+  color: rgb(245, 241, 241);
+}
+
+
 }
 </style>

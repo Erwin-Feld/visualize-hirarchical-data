@@ -96,4 +96,18 @@ export default defineComponent ({
   display: none;
 }
 
+
+@media only screen and (max-width: 768px){
+
+.consent-container {
+
+  font-size: 0.8rem;
+}
+
+.consent-button {
+
+  font-size: 1rem;
+}
+
+}
 </style>
