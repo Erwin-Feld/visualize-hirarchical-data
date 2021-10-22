@@ -70,7 +70,7 @@ function makeDataHirarchic(d) {
     .attr("width", "100%")
     .attr("height", "100%")
     .classed("svg-graph", true)
-    .style("font", "8px monospace")
+    .style("font", "9px monospace")
     .style("user-select", "none");
 
   const g = svg
@@ -94,12 +94,12 @@ function makeDataHirarchic(d) {
 
   const zoomBehaviours = d3
     .zoom()
-    .scaleExtent([0.05, 3]) //zoom scale
-
+    .scaleExtent([0.3, 3]) //zoom scale
+      // find correct scale level
     .on("zoom", (event, d) => {
       //  https://observablehq.com/@d3/d3v6-migration-guide
       // ****changed to version 7****
-      g.attr("transform", event.transform);
+      g.attr("transform", event.transform)
     });
 
   svg.call(zoomBehaviours);
