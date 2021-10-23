@@ -2,7 +2,7 @@
   <div class="main-container">
     <header>
       <h1>Visualize your nested data structure</h1>
-      </header>
+    </header>
     <user-input :parentCompData="graphData" @render-data="receaveData" />
 
     <div class="cookie-slider__tree-graph-container">
@@ -68,9 +68,9 @@ export default {
 :root {
   /* Add change change main radius */
   /* das obere macht alles rund und grenzen */
-   --main-radius: 5px; 
-   --main-padding: 5px; 
-   padding-top: 2%;
+  --main-radius: 5px;
+  --main-padding: 5px;
+  padding-top: 2%;
   padding-left: 7%;
   padding-right: 7%;
 }
@@ -84,13 +84,14 @@ export default {
   display: grid;
   min-width: 200px;
   grid-template-columns: 1fr;
-  grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr;
+  /* grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr; */
   grid-template-areas:
     "header"
     "user-input"
     "cookie-slider__tree-graph-container"
     "footer";
   text-align: center;
+  /* Add grid or row gap ? */
   grid-gap: 0.1rem;
   color: #004d40;
 }
@@ -163,21 +164,49 @@ footer {
   text-shadow: 1px 2px 2.5px rgba(0, 0, 7, 0.904);
 }
 
-
-/* Tablet */
-@media only screen and (max-width: 768px){
-
+/* mobile */
+@media only screen and (min-width: 200px) {
   .main-container {
-     grid-template-rows: 0.3fr 0.8fr 2fr 0.2fr;
-
+    grid-template-rows: 0.2fr 0.5fr 0.8fr 0.2fr;
   }
 
-  h1 {font-size: 1.5em;}
+  h1 {
+    font-size: 1.3em;
+  }
 
-
+  .footer-container {
+    font-size: 1em;
+    flex-direction: column;
+  }
 }
-  
 
-  
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  .main-container {
+    grid-template-rows: 0.3fr 0.8fr 2fr 0.2fr;
+  }
 
+  h1 {
+    font-size: 1.5em;
+  }
+
+  .footer-container {
+    flex-direction: row;
+  }
+}
+
+/* Laptop 1024 */
+@media only screen and (min-width: 1024px) {
+  .main-container {
+    grid-template-rows: 0.3fr 1fr 2.2fr 0.3fr;
+    grid-gap: 5px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+  .footer-container {
+    flex-direction: row;
+  }
+}
 </style>
