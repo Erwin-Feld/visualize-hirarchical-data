@@ -123,8 +123,9 @@ button:hover {
     /* border-radius: 18%; */
 }
 
+/* mobile same */
 
-/* Tablet */
+/* Tablet same */
 @media only screen and (max-width: 768px){
 
 button {
@@ -132,5 +133,15 @@ button {
 }
 
 }
+
+/* Laptop 1024 */
+@media only screen and (min-width: 1024px){
+
+button {
+   font-size: 0.8rem;
+}
+
+}
+
 
 </style>
