@@ -76,7 +76,7 @@ export default defineComponent ({
   );
   display: flex;
   align-items: baseline;
-  gap: 5px;
+  /* gap: 5px; */
 }
 
 .consent-button {
@@ -96,17 +96,52 @@ export default defineComponent ({
   display: none;
 }
 
-/* Tablet */
-@media only screen and (max-width: 768px){
+/* mobile */
+@media only screen and (min-width: 200px){
 
 .consent-container {
+  align-items: center;
+ gap: 1px;
+  font-size: 0.6rem;
+}
 
+.consent-button {
+
+  font-size: 0.5rem;
+}
+
+}
+
+
+
+/* Tablet */
+@media only screen and (min-width: 768px){
+
+.consent-container {
+  gap: 2px;
   font-size: 0.8rem;
 }
 
 .consent-button {
 
   font-size: 1rem;
+}
+
+}
+
+
+
+/* Laptop 1024 */
+@media only screen and (min-width: 1024px){
+
+.consent-container {
+  gap: 12px;
+  font-size: 1rem;
+}
+
+.consent-button {
+
+  font-size: 1.1rem;
 }
 
 }
