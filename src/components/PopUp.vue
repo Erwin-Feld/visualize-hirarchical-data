@@ -13,7 +13,7 @@
     <div class="error-message__expl-buttom">no variables</div>
 
     <button type="button" class="pop-up__button" @click="hidePopUp">
-      delete and try again
+     close
     </button>
   </div>
 </template>
@@ -102,8 +102,9 @@ export default {
   text-shadow: 1px 1px 2px rgba(159, 159, 207, 0.51);
 }
 
+/* mobile same */
 /* Tablet */
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 200px) {
   .error-message__json5 {
     font-size: 0.7rem;
   }
@@ -114,6 +115,27 @@ export default {
 
   .error-message__expl-buttom {
     font-size: 0.8rem;
+  }
+}
+
+
+
+/* Laptop 1024 */
+@media only screen and (min-width: 1024px){
+  .error-message__json5 {
+    font-size: 0.8rem;
+  }
+
+  .error-message__expl {
+    font-size: 0.7rem;
+  }
+
+  .error-message__expl-buttom {
+    font-size: 0.9rem;
+  }
+
+  .pop-up__button {
+     font-size: 0.9rem;
   }
 }
 </style>
