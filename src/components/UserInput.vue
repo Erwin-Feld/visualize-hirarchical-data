@@ -180,7 +180,7 @@ export default {
 
   font-family: "Roboto Mono", monospace;
   font-weight: 500;
-  font-size: 0.6rem;
+  /* font-size: 0.6rem; */
   text-shadow: 1px 2px 2px rgba(122, 122, 128, 0.51);
 }
 
@@ -255,8 +255,37 @@ textarea:focus::placeholder {
   font-weight: 1000;
 }
 
+
+
+/* mobile */
+@media only screen and (min-width: 200px){
+
+.user-input__container-left {
+    font-size: 0.5rem;
+  }
+
+  .user-input__data-insert {
+    font-size: 0.4rem;
+    border-radius: 2%;
+  }
+
+  .user-input__container-right {
+    font-size: 0.5rem;
+  }
+
+  .render-button {
+    min-width: 50px;
+    min-height: 25px;
+
+    max-height: 50%;
+    border-radius: 10%;
+
+    font-size: 1.1em;
+  }
+}
+
 /* Tablet */
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
   .user-input__container-left {
     font-size: 0.8rem;
   }
@@ -268,6 +297,33 @@ textarea:focus::placeholder {
 
   .user-input__container-right {
     font-size: 0.8rem;
+  }
+
+  .render-button {
+    min-width: 70px;
+    min-height: 35px;
+
+    max-height: 50%;
+    border-radius: 20%;
+
+    font-size: 1.1em;
+  }
+}
+
+
+/* Laptop 1024 */
+@media only screen and (min-width: 1024px){
+  .user-input__container-left {
+    font-size: 1rem;
+  }
+
+  .user-input__data-insert {
+    font-size: 0.9rem;
+    border-radius: 2%;
+  }
+
+  .user-input__container-right {
+    font-size: 1rem;
   }
 
   .render-button {
