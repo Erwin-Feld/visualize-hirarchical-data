@@ -26,15 +26,10 @@ export default {
       const selectDivRef = d3.select(divRef.value);
 
       const root = customHierarchy(d3, props.data, makeDataHirarchic);
-      //  link length
-      const dx = 60;
-
-      // link height
-      const dy = 80;
 
       // selects the div parent and append the svg element to it
       d3.select(selectDivRef.node()).append(function() {
-        return zoomGraph(d3, root, dx, dy, divRef);
+        return zoomGraph(d3, root, divRef, window.innerWidth);
       });
     });
 
@@ -50,15 +45,9 @@ export default {
 
         const root = customHierarchy(d3, props.data, makeDataHirarchic);
 
-        //  link length
-        const dx = 60;
-
-        // link height
-        const dy = 80;
-
         // selects the div parent and append the svg element to it
         d3.select(selectDivRef.node()).append(function() {
-          return zoomGraph(d3, root, dx, dy, divRef);
+          return zoomGraph(d3, root, divRef, window.innerWidth);
         });
       }
     );
@@ -73,16 +62,10 @@ export default {
         const selectDivRef = d3.select(divRef.value);
 
         const root = customHierarchy(d3, props.data, makeDataHirarchic);
-
-        //  link length
-        const dx = 60;
-
-        // link height
-        const dy = 80;
-
+       
         // selects the div parent and append the svg element to it
         d3.select(selectDivRef.node()).append(function() {
-          return zoomGraph(d3, root, dx, dy, divRef);
+          return zoomGraph(d3, root, divRef, window.innerWidth);
         });
 
     }
@@ -140,6 +123,23 @@ button {
 button {
    font-size: 0.8rem;
 }
+
+}
+
+
+/* Desktop 1920 */
+@media only screen and (min-width: 1920px){
+
+button {
+  max-width: 110px;
+  
+  
+    /* border-color: #F8B3BB; */
+  border-radius: 11%;
+  border-width: 3px;
+  font-size: 1rem;
+}
+
 
 }
 
