@@ -219,7 +219,7 @@ textarea:focus::placeholder {
   max-width: 20%;
 
   max-height: 50%;
-  border-radius: 20%;
+  border-radius: 10%;
   box-shadow: 0 4px #a8a8a8;
 
   font-family: "Inter", sans-serif;
@@ -236,7 +236,7 @@ textarea:focus::placeholder {
 }
 
 .render-button:hover {
-  font-weight: 800;
+  /* font-weight: 700; */
   box-shadow: 0 5px #666;
   background: #ede9f0;
 }
@@ -246,7 +246,7 @@ textarea:focus::placeholder {
 
   box-shadow: 3 4px #666;
   color: #141414;
-  font-weight: 1000;
+  font-weight: 800;
   transform: translateY(7px);
 }
 
@@ -255,12 +255,9 @@ textarea:focus::placeholder {
   font-weight: 1000;
 }
 
-
-
 /* mobile */
-@media only screen and (min-width: 200px){
-
-.user-input__container-left {
+@media only screen and (min-width: 200px) {
+  .user-input__container-left {
     font-size: 0.5rem;
   }
 
@@ -278,7 +275,6 @@ textarea:focus::placeholder {
     min-height: 25px;
 
     max-height: 50%;
-    border-radius: 10%;
 
     font-size: 1.1em;
   }
@@ -304,15 +300,13 @@ textarea:focus::placeholder {
     min-height: 35px;
 
     max-height: 50%;
-    border-radius: 20%;
 
     font-size: 1.1em;
   }
 }
 
-
 /* Laptop 1024 */
-@media only screen and (min-width: 1024px){
+@media only screen and (min-width: 1024px) {
   .user-input__container-left {
     font-size: 1rem;
   }
@@ -327,11 +321,35 @@ textarea:focus::placeholder {
   }
 
   .render-button {
-    min-width: 70px;
+    min-width: 80px;
     min-height: 35px;
 
     max-height: 50%;
-    border-radius: 20%;
+
+    font-size: 1.1em;
+  }
+}
+
+/* Desktop 1920 */
+@media only screen and (min-width: 1920px) {
+  .user-input__container-left {
+    font-size: 1.5rem;
+  }
+
+  .user-input__data-insert {
+    font-size: 1.3rem;
+    border-radius: 2%;
+  }
+
+  .user-input__container-right {
+    font-size: 1.5rem;
+  }
+
+  .render-button {
+    min-width: 130px;
+    min-height: 50px;
+
+    max-height: 70%;
 
     font-size: 1.1em;
   }
