@@ -2,18 +2,18 @@
   <div class="user-input__container-right-pop-up">
     <div class="error-message__json5">{{ errorMessage }}</div>
 
-    <div class="error-message__expl">accepted data types:</div>
+    <div class="error-message__datatypes">accepted data types:</div>
 
-    <div class="error-message__expl">arrays -> [1,2,"hello"]</div>
+    <div class="error-message__datatypes">arrays -> [1,2,"hello"]</div>
 
-    <div class="error-message__expl">objects/dicts -> {prop: "value"}</div>
+    <div class="error-message__datatypes">objects/dicts -> {prop: "value"}</div>
 
-    <div class="error-message__expl">JSON -> {"prop": "value"}</div>
+    <div class="error-message__datatypes">JSON -> {"prop": "value"}</div>
 
-    <div class="error-message__expl-buttom">no variables</div>
+    <div class="error-message__variables">no variables</div>
 
     <button type="button" class="pop-up__button" @click="hidePopUp">
-     close
+      close
     </button>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
   font-weight: 600;
 }
 
-.error-message__expl {
+.error-message__datatypes {
   margin-top: 1px;
   margin-left: 2px;
   margin-right: 2px;
@@ -72,7 +72,7 @@ export default {
   color: rgb(241, 237, 237);
 }
 
-.error-message__expl-buttom {
+.error-message__variables {
   margin-top: 2px;
   margin-bottom: 2px;
   font-size: 0.5rem;
@@ -85,22 +85,16 @@ export default {
   font-size: 0.7rem;
   margin-left: 5px;
   margin-right: 5px;
+  margin-top: 10px;
   margin-bottom: 5px;
+
+
+
 
   box-shadow: 0 0 1px #ccc;
   text-shadow: 1px 1px 2px rgba(118, 118, 124, 0.51);
 }
 
-.pop-up__button:hover {
-  font-size: 0.7rem;
-  margin-left: 5px;
-  margin-right: 5px;
-
-  font-weight: 700;
-  box-shadow: 0 0 1px rgba(250, 248, 250, 0.459);
-
-  text-shadow: 1px 1px 2px rgba(159, 159, 207, 0.51);
-}
 
 /* mobile same */
 /* Tablet */
@@ -109,33 +103,55 @@ export default {
     font-size: 0.7rem;
   }
 
-  .error-message__expl {
+  .error-message__datatypes {
     font-size: 0.6rem;
   }
 
-  .error-message__expl-buttom {
+  .error-message__variables {
     font-size: 0.8rem;
   }
 }
 
-
-
 /* Laptop 1024 */
-@media only screen and (min-width: 1024px){
+@media only screen and (min-width: 1024px) {
   .error-message__json5 {
     font-size: 0.8rem;
   }
 
-  .error-message__expl {
+  .error-message__datatypes {
     font-size: 0.7rem;
   }
 
-  .error-message__expl-buttom {
+  .error-message__variables {
     font-size: 0.9rem;
   }
 
   .pop-up__button {
      font-size: 0.9rem;
+       align-self: center;
+       min-width: 200px;
+  }
+}
+
+/* Desktop 1920 */
+@media only screen and (min-width: 1920px) {
+  .error-message__json5 {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+
+  .error-message__datatypes {
+    font-size: 1rem;
+  }
+
+  .error-message__variables {
+    font-size: 1.2rem;
+  }
+
+  .pop-up__button {
+     font-size: 1.2rem;
+       align-self: center;
+        min-width: 200px;
   }
 }
 </style>
