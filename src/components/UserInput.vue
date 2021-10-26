@@ -38,7 +38,7 @@
     <!-- change container -->
     <div v-if="!this.inputError" class="user-input__container-right">
       <p class="container-right__text-right">
-        zoom, drag the graph is you like
+        zoom, drag the graph as you like
       </p>
       <button class="render-button" type="button" @click="sendUserData">
         render
@@ -330,10 +330,10 @@ textarea:focus::placeholder {
   }
 }
 
-/* Desktop 1920 */
-@media only screen and (min-width: 1920px) {
+/* Desktop 1440 */
+@media only screen and (min-width: 1440px) {
   .user-input__container-left {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .user-input__data-insert {
@@ -342,7 +342,7 @@ textarea:focus::placeholder {
   }
 
   .user-input__container-right {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .render-button {
