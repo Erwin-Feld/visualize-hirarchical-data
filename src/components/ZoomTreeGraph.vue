@@ -127,8 +127,8 @@ button:hover {
   }
 }
 
-/* Desktop 1920 */
-@media only screen and (min-width: 1920px) {
+/* Desktop 1440 */
+@media only screen and (min-width: 1440px) {
   button {
     max-width: 110px;
 
