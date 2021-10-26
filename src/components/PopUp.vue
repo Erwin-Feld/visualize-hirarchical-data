@@ -10,7 +10,7 @@
 
     <div class="error-message__datatypes">JSON -> {"prop": "value"}</div>
 
-    <div class="error-message__variables">no variables</div>
+    <div class="error-message__variables">no variables!</div>
 
     <button type="button" class="pop-up__button" @click="hidePopUp">
       close
@@ -133,8 +133,8 @@ export default {
   }
 }
 
-/* Desktop 1920 */
-@media only screen and (min-width: 1920px) {
+/* Desktop 1440 */
+@media only screen and (min-width: 1440px) {
   .error-message__json5 {
     margin-top: 10px;
     font-size: 1rem;
