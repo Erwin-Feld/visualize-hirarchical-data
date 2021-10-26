@@ -70,7 +70,7 @@ export default {
   /* das obere macht alles rund und grenzen */
   --main-radius: 5px;
   --main-padding: 5px;
-  padding-top: 2%;
+  /* padding-top: 2%; */
   padding-left: 7%;
   padding-right: 7%;
 }
@@ -78,12 +78,13 @@ export default {
 .main-container {
   height: 100vh;
 
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
+  margin: auto;
 
   display: grid;
   min-width: 200px;
-  grid-template-columns: 1fr;
+  /* grid-template-columns: 1fr; */
   /* grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr; */
   grid-template-areas:
     "header"
@@ -98,7 +99,7 @@ export default {
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&display=swap");
 header {
-  margin-top: 1.5rem;
+  /* margin-top: 1.5rem; */
   font-weight: 800;
   text-align: center;
   font-family: "Roboto Mono", monospace;
@@ -171,6 +172,7 @@ footer {
   }
 
   h1 {
+    margin-top: 1.5rem;
     font-size: 1.3em;
   }
 
@@ -187,7 +189,8 @@ footer {
   }
 
   h1 {
-    font-size: 1.5em;
+    margin-top: 1.5rem;
+    font-size: 1.7em;
   }
 
   .footer-container {
@@ -198,15 +201,44 @@ footer {
 /* Laptop 1024 */
 @media only screen and (min-width: 1024px) {
   .main-container {
-    grid-template-rows: 0.3fr 1fr 2.2fr 0.3fr;
+    grid-template-rows: 0.3fr 1fr 2.2fr 0.2fr;
     grid-gap: 5px;
   }
 
   h1 {
-    font-size: 1.5em;
+    margin-top: 1.5rem;
+    font-size: 2em;
   }
   .footer-container {
     flex-direction: row;
   }
+
+    .footer-container {
+     font-size: 1.2em;
+    flex-direction: row;
+  }
 }
+
+
+/* Desktop  1400 */
+@media only screen and (min-width: 1400px){
+  .main-container {
+   grid-template-rows: 0.2fr 1fr 2fr 0.2fr;
+    grid-gap: 5px;
+  }
+
+
+  header {
+     margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+  .footer-container {
+     font-size: 1.6em;
+    flex-direction: row;
+  }
+}
+
 </style>
