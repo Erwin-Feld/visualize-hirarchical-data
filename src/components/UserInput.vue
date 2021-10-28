@@ -1,5 +1,5 @@
 <template>
-  <div class="user-input">
+  <div class="user-input" :style="cssVar">
     <!-- left container -->
     <div class="user-input__container-left">
       <p class="container-left__text-left">
@@ -64,7 +64,7 @@ import PopUp from "./PopUp.vue";
 
 export default {
   components: { PopUp },
-  props: ["parentCompData"],
+  props: ["homeCompRawData" ,"displayContent"],
 
   // emits the userInputData to parent
   emits: ["render-data"],
@@ -77,7 +77,7 @@ export default {
 
       // displays the initial data from App component as placeholder inside textArea
       // undefined, 4 makes it to displayed more prettier
-      placeHolderData: JSON.stringify(this.parentCompData, undefined, 4),
+      placeHolderData: JSON.stringify(this.homeCompRawData, undefined, 4),
 
       // contains the parsing Error from JSON 5 default is false
       inputError: false,
@@ -86,6 +86,14 @@ export default {
       // flag which detects wrong inserted data format
       unsuportedFormat: false,
     };
+  },
+
+   computed: {
+    cssVar() {
+      return {
+        '--grid-or-none': this.displayContent
+      }
+    }
   },
 
   methods: {
@@ -148,8 +156,9 @@ export default {
 <style scoped>
 .user-input {
   background: #6fffd2;
-
-  display: grid;
+/* change from display grid to none  */
+  display: var(--grid-or-none);
+  /* height: auto; */
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 0.3fr 0.4fr 1fr 1fr 1fr 0.3fr;
 
