@@ -1,5 +1,5 @@
 <template>
-  <div class="user-input">
+  <div class="user-input" :style="cssVar">
     <!-- left container -->
     <div class="user-input__container-left">
       <p class="container-left__text-left">
@@ -8,8 +8,8 @@
       <svg viewBox="-2800 600 5200 2200" xml:space="preserve">
         <g>
           <g>
-          <path
-            class="svg-arrow"
+            <path
+              class="svg-arrow"
               d="M110.25,279.65c-10.06,2.42-6.59,33.57-5.38,40.59c30.14,174.8,110,322.79,203.56,455.14
 		          c98.76,139.75,217.5,257.28,343.51,358.46c135.12,108.49,281.71,194.26,437.76,249.92c75.18,26.82,152.63,44.62,230.32,58.48
 		          c86.84,15.47,172.88,15.33,260.77,13.65c12.86-0.27,7.29-76.39-10.46-76.05c-75.56,1.48-149.91,2.6-224.88-7.87
@@ -38,7 +38,7 @@
     <!-- change container -->
     <div v-if="!this.inputError" class="user-input__container-right">
       <p class="container-right__text-right">
-        zoom, drag the graph is you like
+        zoom, drag the graph as you like
       </p>
       <button class="render-button" type="button" @click="sendUserData">
         render
@@ -64,7 +64,7 @@ import PopUp from "./PopUp.vue";
 
 export default {
   components: { PopUp },
-  props: ["parentCompData"],
+  props: ["homeCompRawData" ,"displayContent"],
 
   // emits the userInputData to parent
   emits: ["render-data"],
@@ -77,7 +77,7 @@ export default {
 
       // displays the initial data from App component as placeholder inside textArea
       // undefined, 4 makes it to displayed more prettier
-      placeHolderData: JSON.stringify(this.parentCompData, undefined, 4),
+      placeHolderData: JSON.stringify(this.homeCompRawData, undefined, 4),
 
       // contains the parsing Error from JSON 5 default is false
       inputError: false,
@@ -86,6 +86,14 @@ export default {
       // flag which detects wrong inserted data format
       unsuportedFormat: false,
     };
+  },
+
+   computed: {
+    cssVar() {
+      return {
+        '--grid-or-none': this.displayContent
+      }
+    }
   },
 
   methods: {
@@ -148,13 +156,13 @@ export default {
 <style scoped>
 .user-input {
   background: #6fffd2;
-
-  display: grid;
+/* change from display grid to none  */
+  display: var(--grid-or-none);
+  /* height: auto; */
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 0.3fr 0.4fr 1fr 1fr 1fr 0.3fr;
 
   grid-gap: 0.5rem;
-
   grid-template-areas:
     ". . ."
     ". user-input__data-insert ."
@@ -181,7 +189,7 @@ export default {
 
   font-family: "Roboto Mono", monospace;
   font-weight: 500;
-  font-size: 0.6rem;
+  /* font-size: 0.6rem; */
   text-shadow: 1px 2px 2px rgba(122, 122, 128, 0.51);
 }
 
@@ -220,7 +228,7 @@ textarea:focus::placeholder {
   max-width: 20%;
 
   max-height: 50%;
-  border-radius: 20%;
+  border-radius: 10%;
   box-shadow: 0 4px #a8a8a8;
 
   font-family: "Inter", sans-serif;
@@ -237,7 +245,7 @@ textarea:focus::placeholder {
 }
 
 .render-button:hover {
-  font-weight: 800;
+  /* font-weight: 700; */
   box-shadow: 0 5px #666;
   background: #ede9f0;
 }
@@ -247,12 +255,112 @@ textarea:focus::placeholder {
 
   box-shadow: 3 4px #666;
   color: #141414;
-  font-weight: 1000;
+  font-weight: 800;
   transform: translateY(7px);
 }
 
 .container-right__text-reminder {
   color: #f8485e;
   font-weight: 1000;
+}
+
+/* mobile */
+@media only screen and (min-width: 200px) {
+  .user-input__container-left {
+    font-size: 0.5rem;
+  }
+
+  .user-input__data-insert {
+    font-size: 0.4rem;
+    border-radius: 2%;
+  }
+
+  .user-input__container-right {
+    font-size: 0.5rem;
+  }
+
+  .render-button {
+    min-width: 50px;
+    min-height: 25px;
+
+    max-height: 50%;
+
+    font-size: 1.1em;
+  }
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  .user-input__container-left {
+    font-size: 0.8rem;
+  }
+
+  .user-input__data-insert {
+    font-size: 0.7rem;
+    border-radius: 2%;
+  }
+
+  .user-input__container-right {
+    font-size: 0.8rem;
+  }
+
+  .render-button {
+    min-width: 70px;
+    min-height: 35px;
+
+    max-height: 50%;
+
+    font-size: 1.1em;
+  }
+}
+
+/* Laptop 1024 */
+@media only screen and (min-width: 1024px) {
+  .user-input__container-left {
+    font-size: 1rem;
+  }
+
+  .user-input__data-insert {
+    font-size: 0.9rem;
+    border-radius: 2%;
+  }
+
+  .user-input__container-right {
+    font-size: 1rem;
+  }
+
+  .render-button {
+    min-width: 80px;
+    min-height: 35px;
+
+    max-height: 50%;
+
+    font-size: 1.1em;
+  }
+}
+
+/* Desktop 1440 */
+@media only screen and (min-width: 1440px) {
+  .user-input__container-left {
+    font-size: 1.3rem;
+  }
+
+  .user-input__data-insert {
+    font-size: 1.3rem;
+    border-radius: 2%;
+  }
+
+  .user-input__container-right {
+    font-size: 1.3rem;
+  }
+
+  .render-button {
+    min-width: 130px;
+    min-height: 50px;
+
+    max-height: 70%;
+
+    font-size: 1.1em;
+  }
 }
 </style>

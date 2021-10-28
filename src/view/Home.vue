@@ -1,10 +1,19 @@
 <template>
-  <div class="main-container">
-    <header>Visualize your nested data structure</header>
-    <user-input :parentCompData="graphData" @render-data="receaveData" />
+  <div class="main-container" :style="cssVar">
+    <header>
+      <h1>Visualize your nested data structure</h1>
+    </header>
+    <user-input
+      :homeCompRawData="rawData"
+      @render-data="receaveImpCompData"
+      :displayContent="cssVarStorage"
+    />
 
     <div class="cookie-slider__tree-graph-container">
-      <zoom-tree-graph :data="graphData" />
+      <zoom-tree-graph
+        :graphData="rawData"
+        @click-emit="clickEventRetGraphComp"
+      />
 
       <cookie-slider />
     </div>
@@ -36,7 +45,7 @@ export default {
 
   data() {
     return {
-      graphData: {
+      rawData: {
         cereal: "no",
         bread: [
           { toast: "nah" },
@@ -46,13 +55,41 @@ export default {
           },
         ],
       },
+      // css display value of inputComp
+      cssVarStorage: "grid",
+
+      // contains starting rowFraction
+      depRowFract: 0.6,
     };
   },
 
+  // changes css variable based on data property content
+  // siehe https://www.telerik.com/blogs/passing-variables-to-css-on-a-vue-component
+  computed: {
+    cssVar() {
+      return {
+        "--dep-fract": this.depRowFract + "fr",
+      };
+    },
+  },
+
   methods: {
-    receaveData(compTransmit) {
+    receaveImpCompData(compTransmit) {
       // get the userdata from input Component and sends it to graph to render
-      this.graphData = compTransmit;
+      this.rawData = compTransmit;
+    },
+
+    // receaves value from click event from ZoomTreeGraph which is true or false
+    clickEventRetGraphComp(compTransmit) {
+      if (compTransmit._value === true) {
+        // sets css value to none which hides it and row fraction to 0
+        this.cssVarStorage = "none";
+        this.depRowFract = 0;
+      } else {
+        // display it in a grid layout
+        this.cssVarStorage = "grid";
+        this.depRowFract = 0.6;
+      }
     },
   },
 };
@@ -64,22 +101,24 @@ export default {
 }
 
 :root {
+  /* global padding and radius stats */
   --main-radius: 5px;
   --main-padding: 5px;
-  padding-left: 5%;
-  padding-right: 5%;
+  /* padding-top: 2%; */
+  padding-left: 7%;
+  padding-right: 7%;
 }
 
 .main-container {
   height: 100vh;
 
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
+  margin: auto;
 
   display: grid;
   min-width: 200px;
-  grid-template-columns: 1fr;
-  grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr;
+  grid-template-rows: 0.4fr var(--dep-fract) 2.2fr 0.2fr;
   grid-template-areas:
     "header"
     "user-input"
@@ -92,7 +131,6 @@ export default {
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&display=swap");
 header {
-  margin-top: 5px;
   font-weight: 800;
   text-align: center;
   font-family: "Roboto Mono", monospace;
@@ -132,19 +170,16 @@ footer {
 }
 
 .footer-container__author {
-  font-size: 0.6rem;
   font-weight: 500;
   color: #ffffff;
 }
 
 .footer-container__contact {
-  font-size: 0.6rem;
   font-weight: 500;
   color: #ffffff;
 }
 
 .footer-container__policy {
-  font-size: 0.6rem;
   font-weight: 500;
   color: #ffffff;
 }
@@ -157,16 +192,68 @@ footer {
   color: #f9f9f9;
   text-shadow: 1px 2px 2.5px rgba(0, 0, 7, 0.904);
 }
-/*     
-  @media only screen and (max-width: 550px) {
-    .container {
-      grid-template-columns: 1fr;
-      grid-template-rows:0.2fr 1.2fr 1.8fr 0.3fr;
-      grid-template-areas:
-        "nav"
-        "userInput"
-        "treeGraph"
-        "footer";
-    }
-  } */
+
+/* mobile */
+@media only screen and (min-width: 200px) {
+  h1 {
+    margin-top: 1.5rem;
+    font-size: 1.3em;
+  }
+
+  .footer-container {
+    font-size: 1em;
+    flex-direction: column;
+  }
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  h1 {
+    margin-top: 1.5rem;
+    font-size: 1.7em;
+  }
+
+  .footer-container {
+    flex-direction: row;
+  }
+}
+
+/* Laptop 1024 */
+@media only screen and (min-width: 1024px) {
+  .main-container {
+    grid-gap: 5px;
+  }
+
+  h1 {
+    margin-top: 1.5rem;
+    font-size: 2em;
+  }
+  .footer-container {
+    flex-direction: row;
+  }
+
+  .footer-container {
+    font-size: 1.2em;
+    flex-direction: row;
+  }
+}
+
+/* Desktop  1400 */
+@media only screen and (min-width: 1400px) {
+  .main-container {
+    grid-gap: 5px;
+  }
+
+  header {
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+  .footer-container {
+    font-size: 1.6em;
+    flex-direction: row;
+  }
+}
 </style>

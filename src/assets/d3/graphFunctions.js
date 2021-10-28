@@ -1,30 +1,27 @@
-import {cloneDeep} from 'lodash'
+import { cloneDeep } from "lodash";
 
-// d3.hierarchy funciton inside 
-// use if function is to create clone of data 
+// d3.hierarchy funciton inside
+// use if function is to create clone of data
 function customHierarchy(d3, parentData, makeDataHirarchic) {
-
-  if(Array.isArray(parentData)){
-    // packs Array inside Object 
+  if (Array.isArray(parentData)) {
+    // packs Array inside Object
     // to not display a huge array /to cut it off
-    const packInsideObject = {array: parentData}
-    const clone = cloneDeep(packInsideObject)
+    const packInsideObject = { array: parentData };
+    const clone = cloneDeep(packInsideObject);
 
-    return d3.hierarchy(clone, makeDataHirarchic)
+    return d3.hierarchy(clone, makeDataHirarchic);
   } else {
-      // create shallow copy of data to prevent mutation from
-      const clone = cloneDeep(parentData)
+    // create shallow copy of data to prevent mutation from
+    const clone = cloneDeep(parentData);
 
-      return d3.hierarchy(clone, makeDataHirarchic)
-    }
+    return d3.hierarchy(clone, makeDataHirarchic);
+  }
 }
 
 // takes json and js objects trnasforms them
 //  for d3.hirarchy function exabtable
 
 function makeDataHirarchic(d) {
-
-
   if (typeof d === "object")
     return Object.keys(d)
       .filter((d) => d !== "$name")
@@ -35,12 +32,84 @@ function makeDataHirarchic(d) {
       });
 }
 
- function zoomGraph(d3, root, dx, dy, divRef) {
-    // d3 --> library
-    //  root --> data transformed hirarchically
-    // dx --> starting x coordinates
-    // dy --> starting y coordinates
-  // divRef ref for parent div container 
+// Adjust Graph size and font on current windowWidth
+
+function scaleGraphSize(currentScreenWidth) {
+  // base stats
+  const dx = 60;
+  const dy = 80;
+
+  const fontSize = 9;
+  const textPositionX = -10;
+  const textPositionY = -10;
+
+  const linkWidth = 1.8;
+
+  const radiusActiveEnd = 6;
+  const radiusDeadEnd = 3;
+  const radiusFill = 3;
+
+  // mobile and tablet
+  if (currentScreenWidth < 768) {
+    return {
+      dx: dx + 10,
+      dy: dy + 20,
+      fontSize,
+      textPositionX,
+      textPositionY,
+      linkWidth,
+      radiusActiveEnd,
+      radiusDeadEnd,
+      radiusFill,
+    };
+
+    // Laptop 1024
+  } else if (currentScreenWidth > 768 && currentScreenWidth <= 1440) {
+    return {
+      dx: dx + 25,
+      dy: dy + 90,
+      fontSize: fontSize + 4,
+      textPositionX: textPositionX - 10, // - because base stats are minus adding
+      textPositionY: textPositionY - 15,
+      linkWidth: linkWidth + 2,
+      radiusActiveEnd: radiusActiveEnd + 4,
+      radiusDeadEnd: radiusDeadEnd + 2,
+      radiusFill: radiusFill + 1,
+    };
+
+    // Desktop 1440
+  } else {
+    return {
+      dx: dx + 50,
+      dy: dy + 160,
+      fontSize: fontSize + 6,
+      textPositionX: textPositionX - 10, // - because base stats are minus adding
+      textPositionY: textPositionY - 15,
+      linkWidth: linkWidth + 2,
+      radiusActiveEnd: radiusActiveEnd + 7,
+      radiusDeadEnd: radiusDeadEnd + 4,
+      radiusFill: radiusFill + 2,
+    };
+
+  }
+}
+
+function zoomGraph(d3, root, divRef, currentWidth) {
+  // d3 --> library
+  //  root --> data transformed hirarchically
+  // divRef ref ---> for selecting parent div container
+
+  const {
+    dx,
+    dy,
+    fontSize,
+    textPositionX,
+    textPositionY,
+    linkWidth,
+    radiusActiveEnd,
+    radiusDeadEnd,
+    radiusFill,
+  } = scaleGraphSize(currentWidth);
 
   // maps the nodes
   const tree = d3.tree().nodeSize([dx, dy]);
@@ -51,8 +120,7 @@ function makeDataHirarchic(d) {
     .x((d) => d.y)
     .y((d) => d.x);
 
-    // ****************
-
+  // ****************
 
   root.x0 = 0;
   root.y0 = dy / 2;
@@ -70,7 +138,7 @@ function makeDataHirarchic(d) {
     .attr("width", "100%")
     .attr("height", "100%")
     .classed("svg-graph", true)
-    .style("font", "8px monospace")
+    .style("font", `${fontSize}px monospace`)
     .style("user-select", "none");
 
   const g = svg
@@ -83,8 +151,7 @@ function makeDataHirarchic(d) {
     .attr("fill", "none")
     .attr("stroke", "#555")
     .attr("stroke-opacity", 0.4)
-    .attr("stroke-width", 1.8);
-
+    .attr("stroke-width", linkWidth);
   // **************** zoom event ************************
 
   const gNode = g
@@ -94,8 +161,8 @@ function makeDataHirarchic(d) {
 
   const zoomBehaviours = d3
     .zoom()
-    .scaleExtent([0.05, 3]) //zoom scale
-
+    .scaleExtent([0.1, 3]) //zoom scale
+    // find correct scale level
     .on("zoom", (event, d) => {
       //  https://observablehq.com/@d3/d3v6-migration-guide
       // ****changed to version 7****
@@ -105,7 +172,7 @@ function makeDataHirarchic(d) {
   svg.call(zoomBehaviours);
 
   setTimeout(() => {
-    // gets reactive size  of parent width
+    // gets reactive size  of parent width to place graph at calculated position
     const parentWidth = divRef.value.clientWidth;
     const parentHeight = divRef.value.clientHeight;
     zoomBehaviours.translateTo(svg, parentWidth / 4, parentHeight / 6), 100;
@@ -157,26 +224,22 @@ function makeDataHirarchic(d) {
       .append("circle")
       .attr("classed", (d) => (d._children ? "node-" : "leaf"))
       // .attr("r", 8)
-      .attr("r", (d) => (d._children ? 6 : 3))
+      .attr("r", (d) => (d._children ? radiusActiveEnd : radiusDeadEnd))
       .attr("fill", (d) => (d._children ? "none" : "#999"))
       .attr("stroke", (d) => (d._children ? "#F8485E" : "#999"))
-      .attr("stroke-width", 3);
+      .attr("stroke-width", radiusFill);
 
+    nodeEnter
+      .append("text")
+      .text(function(d) {
+        return d.data.$name || d.data;
+      })
+      .attr("y", textPositionY)
+      .attr("x", textPositionX)
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-width", 3)
+      .attr("text-anchor", "middle");
 
-        nodeEnter
-        .append("text")
-        .text(function(d) {
-          return d.data.$name || d.data;
-        })
-        .attr("y", -10)
-        .attr("x", -10)
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-width", 3)
-        .attr("text-anchor", "middle");
-
-   
-
-   
     const nodeUpdate = node
       .merge(nodeEnter)
       .transition(transition)
@@ -262,9 +325,4 @@ function makeDataHirarchic(d) {
   return svg.node();
 }
 
-
-export {zoomGraph,makeDataHirarchic, customHierarchy}
-
-
-
-
+export { zoomGraph, scaleGraphSize, makeDataHirarchic, customHierarchy };
