@@ -52,8 +52,8 @@ function scaleGraphSize(currentScreenWidth) {
   // mobile and tablet
   if (currentScreenWidth < 768) {
     return {
-      dx,
-      dy,
+      dx: dx + 10,
+      dy: dy + 20,
       fontSize,
       textPositionX,
       textPositionY,
@@ -63,11 +63,25 @@ function scaleGraphSize(currentScreenWidth) {
       radiusFill,
     };
 
-    // Desktop
+    // Laptop 1024
+  } else if (currentScreenWidth > 768 && currentScreenWidth <= 1440) {
+    return {
+      dx: dx + 25,
+      dy: dy + 90,
+      fontSize: fontSize + 4,
+      textPositionX: textPositionX - 10, // - because base stats are minus adding
+      textPositionY: textPositionY - 15,
+      linkWidth: linkWidth + 2,
+      radiusActiveEnd: radiusActiveEnd + 4,
+      radiusDeadEnd: radiusDeadEnd + 2,
+      radiusFill: radiusFill + 1,
+    };
+
+    // Desktop 1440
   } else {
     return {
-      dx: dx + 140,
-      dy: dy + 60,
+      dx: dx + 50,
+      dy: dy + 160,
       fontSize: fontSize + 6,
       textPositionX: textPositionX - 10, // - because base stats are minus adding
       textPositionY: textPositionY - 15,
@@ -76,6 +90,7 @@ function scaleGraphSize(currentScreenWidth) {
       radiusDeadEnd: radiusDeadEnd + 4,
       radiusFill: radiusFill + 2,
     };
+
   }
 }
 
@@ -146,7 +161,7 @@ function zoomGraph(d3, root, divRef, currentWidth) {
 
   const zoomBehaviours = d3
     .zoom()
-    .scaleExtent([0.3, 3]) //zoom scale
+    .scaleExtent([0.1, 3]) //zoom scale
     // find correct scale level
     .on("zoom", (event, d) => {
       //  https://observablehq.com/@d3/d3v6-migration-guide
