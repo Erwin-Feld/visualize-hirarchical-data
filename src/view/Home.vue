@@ -1,12 +1,19 @@
 <template>
-  <div class="main-container">
+  <div class="main-container" :style="cssVar">
     <header>
       <h1>Visualize your nested data structure</h1>
     </header>
-    <user-input :parentCompData="graphData" @render-data="receaveData" />
+    <user-input
+      :homeCompRawData="rawData"
+      @render-data="receaveImpCompData"
+      :displayContent="cssVarStorage"
+    />
 
     <div class="cookie-slider__tree-graph-container">
-      <zoom-tree-graph :data="graphData" />
+      <zoom-tree-graph
+        :graphData="rawData"
+        @click-emit="clickEventRetGraphComp"
+      />
 
       <cookie-slider />
     </div>
@@ -38,7 +45,7 @@ export default {
 
   data() {
     return {
-      graphData: {
+      rawData: {
         cereal: "no",
         bread: [
           { toast: "nah" },
@@ -48,13 +55,41 @@ export default {
           },
         ],
       },
+      // css display value of inputComp
+      cssVarStorage: "grid",
+
+      // contains starting rowFraction
+      depRowFract: 0.6,
     };
   },
 
+  // changes css variable based on data property content
+  // siehe https://www.telerik.com/blogs/passing-variables-to-css-on-a-vue-component
+  computed: {
+    cssVar() {
+      return {
+        "--dep-fract": this.depRowFract + "fr",
+      };
+    },
+  },
+
   methods: {
-    receaveData(compTransmit) {
+    receaveImpCompData(compTransmit) {
       // get the userdata from input Component and sends it to graph to render
-      this.graphData = compTransmit;
+      this.rawData = compTransmit;
+    },
+
+    // receaves value from click event from ZoomTreeGraph which is true or false
+    clickEventRetGraphComp(compTransmit) {
+      if (compTransmit._value === true) {
+        // sets css value to none which hides it and row fraction to 0
+        this.cssVarStorage = "none";
+        this.depRowFract = 0;
+      } else {
+        // display it in a grid layout
+        this.cssVarStorage = "grid";
+        this.depRowFract = 0.6;
+      }
     },
   },
 };
@@ -66,8 +101,7 @@ export default {
 }
 
 :root {
-  /* Add change change main radius */
-  /* das obere macht alles rund und grenzen */
+  /* global padding and radius stats */
   --main-radius: 5px;
   --main-padding: 5px;
   /* padding-top: 2%; */
@@ -84,22 +118,19 @@ export default {
 
   display: grid;
   min-width: 200px;
-  /* grid-template-columns: 1fr; */
-  /* grid-template-rows: 0.4fr 0.6fr 2.2fr 0.2fr; */
+  grid-template-rows: 0.4fr var(--dep-fract) 2.2fr 0.2fr;
   grid-template-areas:
     "header"
     "user-input"
     "cookie-slider__tree-graph-container"
     "footer";
   text-align: center;
-  /* Add grid or row gap ? */
   grid-gap: 0.1rem;
   color: #004d40;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&display=swap");
 header {
-  /* margin-top: 1.5rem; */
   font-weight: 800;
   text-align: center;
   font-family: "Roboto Mono", monospace;
@@ -139,19 +170,16 @@ footer {
 }
 
 .footer-container__author {
-  /* font-size: 0.6rem; */
   font-weight: 500;
   color: #ffffff;
 }
 
 .footer-container__contact {
-  /* font-size: 0.6rem; */
   font-weight: 500;
   color: #ffffff;
 }
 
 .footer-container__policy {
-  /* font-size: 0.6rem; */
   font-weight: 500;
   color: #ffffff;
 }
@@ -167,10 +195,6 @@ footer {
 
 /* mobile */
 @media only screen and (min-width: 200px) {
-  .main-container {
-    grid-template-rows: 0.2fr 0.5fr 0.8fr 0.2fr;
-  }
-
   h1 {
     margin-top: 1.5rem;
     font-size: 1.3em;
@@ -184,10 +208,6 @@ footer {
 
 /* Tablet */
 @media only screen and (min-width: 768px) {
-  .main-container {
-    grid-template-rows: 0.3fr 0.8fr 2fr 0.2fr;
-  }
-
   h1 {
     margin-top: 1.5rem;
     font-size: 1.7em;
@@ -201,7 +221,6 @@ footer {
 /* Laptop 1024 */
 @media only screen and (min-width: 1024px) {
   .main-container {
-    grid-template-rows: 0.3fr 1fr 2.2fr 0.2fr;
     grid-gap: 5px;
   }
 
@@ -213,32 +232,28 @@ footer {
     flex-direction: row;
   }
 
-    .footer-container {
-     font-size: 1.2em;
+  .footer-container {
+    font-size: 1.2em;
     flex-direction: row;
   }
 }
 
-
 /* Desktop  1400 */
-@media only screen and (min-width: 1400px){
+@media only screen and (min-width: 1400px) {
   .main-container {
-   grid-template-rows: 0.2fr 1fr 2fr 0.2fr;
     grid-gap: 5px;
   }
 
-
   header {
-     margin-bottom: 10px;
+    margin-bottom: 10px;
   }
 
   h1 {
     font-size: 2.5em;
   }
   .footer-container {
-     font-size: 1.6em;
+    font-size: 1.6em;
     flex-direction: row;
   }
 }
-
 </style>
