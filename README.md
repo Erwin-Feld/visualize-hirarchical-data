@@ -1,6 +1,12 @@
 # visualize-hirarchical-data
 
-#### displayjson.com
+tool to graphically visualize nested data structures 
+
+
+https://www.displayjson.com/
+
+
+© 2021 Erwin Feld
 
 ## Project setup
 ```
@@ -21,23 +27,4 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-
-
-### lets get started !
-
-
-
-##### not fixed
- strings and numbers can only be updates on same row
-else only last row gets the new value 
-
-delete svg and create new one with same data
-detection on edditing same data is not working
-still displays it as same data 
-
-button click user sees something changes which is also exeptable 
-
-
 
