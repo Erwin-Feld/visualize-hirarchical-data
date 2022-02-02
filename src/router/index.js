@@ -11,11 +11,11 @@ const routes = [
     component: Home,
   },
 
-  {
-    path: "/policy",
-    name: "policy",
-    component: Policy,
-  },
+  // {
+  //   path: "/policy",
+  //   name: "policy",
+  //   component: Policy,
+  // },
   { path: "/:pathMatch(.*)*", component: PageNotFound }
 ];
 

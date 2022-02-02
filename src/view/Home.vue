@@ -15,13 +15,13 @@
         @click-emit="clickEventRetGraphComp"
       />
 
-      <cookie-slider />
+      <!-- <cookie-slider /> -->
     </div>
     <footer>
       <div class="footer-container">
-        <div class="footer-container__policy">
+        <!-- <div class="footer-container__policy">
           <router-link to="/policy">policy</router-link>
-        </div>
+        </div> -->
 
         <div class="footer-container__contact">erwinfeld.dev@gmail.com</div>
         <div class="footer-container__author">© 2021 Erwin Feld</div>
@@ -33,14 +33,14 @@
 <script>
 import UserInput from "../components/UserInput.vue";
 import ZoomTreeGraph from "../components/ZoomTreeGraph.vue";
-import CookieSlider from "../components/CookieSlider.vue";
+// import CookieSlider from "../components/CookieSlider.vue";
 
 export default {
   name: "Home",
   components: {
     UserInput,
     ZoomTreeGraph,
-    CookieSlider,
+    // CookieSlider,
   },
 
   data() {
